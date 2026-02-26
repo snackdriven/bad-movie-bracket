@@ -2,8 +2,8 @@
 
 /* CRT: Scanlines */
 @keyframes crt-scanlines-flicker {
-  0%   { opacity: 0.5; }
-  50%  { opacity: 0.8; }
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1; }
 }
 
 body::after {
@@ -12,13 +12,13 @@ body::after {
   inset: 0;
   z-index: 9998;
   pointer-events: none;
-  animation: 0.2s normal crt-scanlines-flicker infinite;
+  animation: 2s ease-in-out crt-scanlines-flicker infinite;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0),
     rgba(255, 255, 255, 0) 50%,
-    rgba(0, 0, 0, 0.2) 70%,
-    rgba(0, 0, 0, 0.6)
+    rgba(0, 0, 0, 0.08) 70%,
+    rgba(0, 0, 0, 0.18)
   );
   background-size: 100% 0.35rem;
 }
@@ -30,13 +30,13 @@ body::before {
   inset: 0;
   z-index: 9997;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.65) 100%);
+  background: radial-gradient(ellipse at 50% 50%, transparent 65%, rgba(0, 0, 0, 0.35) 100%);
 }
 
 /* CRT: Flicker */
 @keyframes crt-flicker {
   0%, 94%, 96%, 100% { opacity: 1; }
-  95% { opacity: 0.96; }
+  95% { opacity: 0.97; }
 }
 
 #root {
