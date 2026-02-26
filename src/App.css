@@ -1,12 +1,18 @@
 /* App-level styles — most styling is inline in App.jsx */
 
 /* CRT: Scanlines */
+@keyframes crt-scanlines-flicker {
+  0%   { opacity: 0.85; }
+  50%  { opacity: 1; }
+}
+
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 9998;
   pointer-events: none;
+  animation: 2s ease-in-out crt-scanlines-flicker infinite;
   background-image:
     linear-gradient(to bottom, rgba(0, 0, 0, 0.16) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.10) 1px, transparent 1px),
@@ -25,12 +31,3 @@ body::before {
   background: radial-gradient(ellipse at 50% 50%, transparent 65%, rgba(0, 0, 0, 0.35) 100%);
 }
 
-/* CRT: Flicker */
-@keyframes crt-flicker {
-  0%, 94%, 96%, 100% { opacity: 1; }
-  95% { opacity: 0.97; }
-}
-
-#root {
-  animation: crt-flicker 7s infinite;
-}
