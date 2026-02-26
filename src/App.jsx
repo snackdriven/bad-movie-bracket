@@ -249,7 +249,7 @@ export default function App() {
 
   // Easter egg: press ? to open the repo
   useEffect(() => {
-    const h = e => { if (e.key === "?" && !e.target.closest("input,textarea")) window.open("https://github.com/snackdriven/bad-movie-bracket", "_blank"); };
+    const h = e => { if (e.key === "?" && !e.target.closest("input,textarea")) window.open("https://github.com/snackdriven/bad-movie-bracket", "_blank", "noopener,noreferrer"); };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
   }, []);
@@ -298,6 +298,7 @@ export default function App() {
       setSyncStatus(error ? "error" : "synced");
       setTimeout(() => setSyncStatus("idle"), 3000);
     }, 2000);
+    return () => clearTimeout(syncTimerRef.current);
   }, [rds, cr, cm, ch, hi, upsets, notes, sbUser]);
 
   const mu = rds[cr]?.[cm];
