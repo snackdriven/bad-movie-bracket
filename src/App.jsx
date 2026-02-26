@@ -652,16 +652,17 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
             )}
           </div>
 
-          {/* Plot blurb — desktop hover only */}
-          {!mob && meta?.plot && (
+          {/* Plot blurb — desktop hover, or always when notes are open */}
+          {(!mob || showCardNotes) && meta?.plot && (
             <div style={{
               fontSize:11, color:"#7a6a58", lineHeight:1.5,
               overflow:"hidden", display:"-webkit-box",
-              WebkitLineClamp:3, WebkitBoxOrient:"vertical",
-              maxHeight: h ? "54px" : "0px",
-              opacity: h ? 1 : 0,
-              transition:"opacity .2s, max-height .22s",
-              marginTop: h ? 2 : 0,
+              WebkitLineClamp: showCardNotes ? 10 : 3,
+              WebkitBoxOrient:"vertical",
+              maxHeight: (h || showCardNotes) ? "120px" : "0px",
+              opacity: (h || showCardNotes) ? 1 : 0,
+              transition:"opacity .2s, max-height .25s",
+              marginTop: (h || showCardNotes) ? 2 : 0,
             }}>{meta.plot}</div>
           )}
 
@@ -679,11 +680,6 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
           padding:mob?"5px 14px":"2px 8px", letterSpacing:.5, minHeight:mob?32:undefined,
         }}>{showCardNotes ? "hide notes ▲" : "notes ▼"}</button>
       </div>
-      {showCardNotes && meta?.plot && (
-        <div style={{ padding:mob?"6px 14px 4px":"6px 16px 4px", borderTop:`1px solid ${c.ac}12` }}>
-          <div style={{ fontSize:mob?11:11, color:"#7a6a58", lineHeight:1.55 }}>{meta.plot}</div>
-        </div>
-      )}
       {showCardNotes && <CardNotes seed={m.seed} note={note} updateNote={updateNote} ac={c.ac} bg={c.bg} mob={mob} transparent />}
     </div>
   );
