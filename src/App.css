@@ -14,9 +14,11 @@ body::after {
   pointer-events: none;
   animation: 2s ease-in-out crt-scanlines-flicker infinite;
   background-image:
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.13) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
-  background-size: 100% 3px, 100% 7px;
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 100% 2px, 100% 5px, 100% 9px, 100% 17px;
 }
 
 /* CRT: Vignette */
