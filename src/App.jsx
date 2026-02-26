@@ -652,17 +652,16 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
             )}
           </div>
 
-          {/* Plot blurb — desktop hover, or always when notes are open */}
-          {(!mob || showCardNotes) && meta?.plot && (
+          {/* Plot blurb — desktop hover only (hidden when notes open) */}
+          {!mob && !showCardNotes && meta?.plot && (
             <div style={{
               fontSize:11, color:"#7a6a58", lineHeight:1.5,
               overflow:"hidden", display:"-webkit-box",
-              WebkitLineClamp: showCardNotes ? 10 : 3,
-              WebkitBoxOrient:"vertical",
-              maxHeight: (h || showCardNotes) ? "120px" : "0px",
-              opacity: (h || showCardNotes) ? 1 : 0,
-              transition:"opacity .2s, max-height .25s",
-              marginTop: (h || showCardNotes) ? 2 : 0,
+              WebkitLineClamp:3, WebkitBoxOrient:"vertical",
+              maxHeight: h ? "54px" : "0px",
+              opacity: h ? 1 : 0,
+              transition:"opacity .2s, max-height .22s",
+              marginTop: h ? 2 : 0,
             }}>{meta.plot}</div>
           )}
 
@@ -670,7 +669,7 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
           {showCardNotes && FACTS[m.name] && (
             <div style={{
               fontSize:11, color:"#8a7a62", lineHeight:1.55,
-              borderTop:`1px solid ${c.ac}18`, paddingTop:6, marginTop:2,
+              marginTop:2,
             }}>{FACTS[m.name]}</div>
           )}
 
