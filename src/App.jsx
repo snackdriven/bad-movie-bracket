@@ -679,6 +679,11 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
           padding:mob?"5px 14px":"2px 8px", letterSpacing:.5, minHeight:mob?32:undefined,
         }}>{showCardNotes ? "hide notes ▲" : "notes ▼"}</button>
       </div>
+      {showCardNotes && meta?.plot && (
+        <div style={{ padding:mob?"6px 14px 4px":"6px 16px 4px", borderTop:`1px solid ${c.ac}12` }}>
+          <div style={{ fontSize:mob?11:11, color:"#7a6a58", lineHeight:1.55 }}>{meta.plot}</div>
+        </div>
+      )}
       {showCardNotes && <CardNotes seed={m.seed} note={note} updateNote={updateNote} ac={c.ac} bg={c.bg} mob={mob} transparent />}
     </div>
   );
