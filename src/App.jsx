@@ -189,7 +189,11 @@ export default function App() {
   const [init] = useState(() => {
     const s = loadLS("bmt-state", null);
     if (!s || s.v !== STATE_VERSION) return null;
-    return { ...s, rds: s.rds.map(r => desMatch(r)) };
+    try {
+      return { ...s, rds: s.rds.map(r => desMatch(r)) };
+    } catch {
+      return null; // corrupt state, start fresh
+    }
   });
 
   // Bracket state — rds[0] is always initialized from R1
@@ -401,8 +405,7 @@ export default function App() {
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
       <Dots mob={mob} />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
-        @keyframes tw{0%,100%{opacity:.04}50%{opacity:.9}}
+@keyframes tw{0%,100%{opacity:.04}50%{opacity:.9}}
         @keyframes su{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
         @keyframes cb{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
         @keyframes wg{0%,100%{text-shadow:0 0 20px rgba(204,48,32,.4),0 0 40px rgba(160,120,24,.1)}50%{text-shadow:0 0 44px rgba(204,48,32,.8),0 0 80px rgba(160,120,24,.25)}}
@@ -424,7 +427,7 @@ export default function App() {
         </div>
 
         {/* Progress bar */}
-        <div style={{ background:"rgba(255,255,255,.04)", borderRadius:20, height:mob?6:5, marginBottom:mob?6:6, overflow:"hidden" }}>
+        <div role="progressbar" aria-valuenow={Math.round(prog)} aria-valuemin={0} aria-valuemax={100} aria-label={`${hi.length} of ${TOTAL_PICKS} picks made`} style={{ background:"rgba(255,255,255,.04)", borderRadius:20, height:mob?6:5, marginBottom:mob?6:6, overflow:"hidden" }}>
           <div style={{ height:"100%", width:`${prog}%`, background:"linear-gradient(90deg,#cc3020,#906020,#a07818)", borderRadius:20, transition:"width .5s" }} />
         </div>
         <div style={{ display:"flex", justifyContent:"space-between", fontSize:mob?12:11, color:"#7a6a58", marginBottom:mob?10:14 }}>
@@ -687,10 +690,14 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
       </button>
 
       <div style={{ textAlign:"center", marginTop:showCardNotes?0:(mob?3:3) }}>
-        <button onClick={e => { e.stopPropagation(); setShowCardNotes(!showCardNotes); }} style={{
-          background:"transparent", border:"none", color:"#7a6a58", fontSize:mob?11:10, cursor:"pointer",
-          padding:mob?"5px 14px":"2px 8px", letterSpacing:.5, minHeight:mob?32:undefined,
-        }}>{showCardNotes ? "hide notes ▲" : "notes ▼"}</button>
+        <button
+          onClick={e => { e.stopPropagation(); setShowCardNotes(!showCardNotes); }}
+          aria-expanded={showCardNotes}
+          aria-label={showCardNotes ? `Hide notes for ${m.name}` : `Add notes for ${m.name}`}
+          style={{
+            background:"transparent", border:"none", color:"#7a6a58", fontSize:mob?11:10, cursor:"pointer",
+            padding:mob?"5px 14px":"2px 8px", letterSpacing:.5, minHeight:mob?32:undefined,
+          }}>{showCardNotes ? "hide notes ▲" : "notes ▼"}</button>
       </div>
       {showCardNotes && <CardNotes seed={m.seed} note={note} updateNote={updateNote} ac={c.ac} bg={c.bg} mob={mob} transparent />}
     </div>
@@ -701,9 +708,13 @@ function AuthModal({ onClose }) {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState(null);
+  const dialogRef = useRef(null);
   useEffect(() => {
     const h = e => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", h);
+    // Move focus into dialog on open
+    const firstFocusable = dialogRef.current?.querySelector("input,button");
+    firstFocusable?.focus();
     return () => window.removeEventListener("keydown", h);
   }, [onClose]);
   const sendLink = async () => {
@@ -719,9 +730,9 @@ function AuthModal({ onClose }) {
     }
   };
   return (
-    <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.8)", zIndex:100, display:"flex", alignItems:"center", justifyContent:"center" }}>
-      <div style={{ background:"#100d0a", border:"1px solid rgba(204,48,32,.15)", borderRadius:16, padding:"28px 24px", maxWidth:380, width:"90%", animation:"su .2s" }}>
-        <h3 style={{ color:"#d4ccba", margin:"0 0 8px", fontSize:18, fontFamily:"'Bebas Neue',sans-serif", fontWeight:400, letterSpacing:"0.06em" }}>Sync Across Devices</h3>
+    <div role="presentation" style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.8)", zIndex:100, display:"flex", alignItems:"center", justifyContent:"center" }} onClick={e => e.target === e.currentTarget && onClose()}>
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="auth-modal-title" style={{ background:"#100d0a", border:"1px solid rgba(204,48,32,.15)", borderRadius:16, padding:"28px 24px", maxWidth:380, width:"90%", animation:"su .2s" }}>
+        <h3 id="auth-modal-title" style={{ color:"#d4ccba", margin:"0 0 8px", fontSize:18, fontFamily:"'Bebas Neue',sans-serif", fontWeight:400, letterSpacing:"0.06em" }}>Sync Across Devices</h3>
         {sent ? (
           <p style={{ color:"#5a4838", fontSize:14, lineHeight:1.6 }}>Check your email for a magic link. Close this when you're signed in.</p>
         ) : (
@@ -839,7 +850,7 @@ function NoteRow({ m, note, c, updateNote, mob }) {
 function Dots({ mob }) {
   const dots = mob ? DOTS.slice(0, 30) : DOTS;
   return (
-    <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:0 }}>
+    <div aria-hidden="true" style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:0 }}>
       {dots.map((d, i) => (
         <div key={i} style={{
           position:"absolute", width:d.w, height:d.h,
