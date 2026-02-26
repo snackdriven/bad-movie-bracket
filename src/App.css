@@ -1,1 +1,37 @@
 /* App-level styles — most styling is inline in App.jsx */
+
+/* CRT: Scanlines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.10) 3px,
+    rgba(0, 0, 0, 0.10) 4px
+  );
+}
+
+/* CRT: Vignette */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+/* CRT: Flicker */
+@keyframes crt-flicker {
+  0%, 94%, 96%, 100% { opacity: 1; }
+  95% { opacity: 0.96; }
+}
+
+#root {
+  animation: crt-flicker 7s infinite;
+}
