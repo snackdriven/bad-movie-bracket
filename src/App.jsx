@@ -129,6 +129,42 @@ const R1 = [
   [24,25],[26,27],[28,29],[30,31],
 ];
 
+// Per-movie metadata: runtime, IMDb rating, hover plot blurb
+const MOVIE_META = {
+  1:  { runtime:"99 min",  rating:"3.7", plot:"A San Francisco banker's life unravels when his fiancée seduces his best friend. Wiseau wrote, directed, produced, and starred in what he insists was always a dark comedy." },
+  2:  { runtime:"88 min",  rating:"2.5", plot:"An obsessive fan stalks his favorite action star. Fred Durst of Limp Bizkit wrote and directed. John Travolta's performance exists in a category of its own." },
+  3:  { runtime:"95 min",  rating:"2.9", plot:"A family on vacation discovers the locals are goblins who want to turn them into plants. Contains no trolls. The director spoke no English during filming." },
+  4:  { runtime:"85 min",  rating:"2.7", plot:"Goku must gather the Dragon Balls before Lord Piccolo destroys the world. The adaptation so offended the creator that he returned to the franchise to correct the damage." },
+  5:  { runtime:"118 min", rating:"2.5", plot:"In 3000 AD, humanity is enslaved by alien Psychlos. Travolta's decade-long passion project — filmed entirely in Dutch angles. Every single shot." },
+  6:  { runtime:"107 min", rating:"3.7", plot:"A thief and his friends seek a magic rod to save their kingdom. Jeremy Irons read the script, decided it was beneath him, and went feral anyway." },
+  7:  { runtime:"102 min", rating:"3.7", plot:"A cop travels to a remote island to investigate a missing girl. Cage improvised the bee scene, the bear suit scene, and several other moments that have since defined a genre of meme." },
+  8:  { runtime:"95 min",  rating:"3.5", plot:"Earth's warriors fight Outworld emperor Shao Kahn. Most of the original cast refused to return, so their characters die in the opening scene." },
+  9:  { runtime:"110 min", rating:"2.7", plot:"A tribe of cats compete to ascend to the Heaviside Layer. Digital fur technology. Universal had to patch the effects after theatrical prints shipped incomplete." },
+  10: { runtime:"104 min", rating:"3.3", plot:"A shy woman reborn with cat powers fights crime. Halle Berry accepted her Razzie in person, Oscar in hand, calling it 'a piece of shit, god-awful movie.'" },
+  11: { runtime:"103 min", rating:"5.3", plot:"A blind lawyer moonlights as a masked vigilante. Affleck took the role to afford a house. He later took the Batman role specifically to replace this memory." },
+  12: { runtime:"97 min",  rating:"4.9", plot:"An assassin hired to kill a father and daughter reconsiders. Garner committed to this sequel before the Daredevil reviews were in. She married Affleck during production." },
+  13: { runtime:"104 min", rating:"2.2", plot:"A young singer rises to fame in New York. Released September 21, 2001 — ten days after the attacks. The studio released it anyway. No one came." },
+  14: { runtime:"81 min",  rating:"2.4", plot:"Two young people fall in love on spring break in Miami. Clarkson had signed the contract before anyone knew she'd win American Idol. She has never discussed it." },
+  15: { runtime:"128 min", rating:"4.4", plot:"A drifter works her way from stripper to showgirl in Las Vegas. Verhoeven and Berkley believed they were making a serious film. Seven Razzies. Later: cult classic." },
+  16: { runtime:"99 min",  rating:"4.1", plot:"A nightclub owner in a fascist future America aids the resistance. It is an unlicensed Casablanca adaptation set in a dystopia. This was intentional." },
+  17: { runtime:"91 min",  rating:"3.4", plot:"A man dreads his twin sister's Thanksgiving visit. Won all ten Razzie Awards in one night, including Sandler winning Worst Actor and Worst Actress for the same performance." },
+  18: { runtime:"87 min",  rating:"4.4", plot:"An aspiring animator moves home and creates chaos. Green wrote, directed, starred, and composed the score. He was dating Drew Barrymore. They divorced shortly after filming." },
+  19: { runtime:"80 min",  rating:"2.5", plot:"A man discovers he descends from master disguisers and must rescue his father. Dana Carvey's company financed it. He has since said he wishes he could unmake it." },
+  20: { runtime:"82 min",  rating:"3.9", plot:"A tall cat visits two bored children and unleashes chaos. Myers' performance disturbed Dr. Seuss's widow enough to permanently ban live-action adaptations of her husband's work." },
+  21: { runtime:"93 min",  rating:"3.1", plot:"A troubled kid accidentally frees a genie from a boombox. Shaquille O'Neal developed the concept. He was also in the NBA Finals that year." },
+  22: { runtime:"95 min",  rating:"3.7", plot:"A lovable inventor inherits a corporation from a man he met on a beach. Carrot Top stars. Cost $10 million, made $279,000. Carrot Top is now a successful Las Vegas performer." },
+  23: { runtime:"94 min",  rating:"4.3", plot:"Interconnected comedy shorts featuring Hollywood stars. Each director personally begged their famous friends to appear. The result proves that friendship has limits." },
+  24: { runtime:"86 min",  rating:"3.2", plot:"A multi-expressional emoji goes on a journey inside a smartphone. Sony chose this over Spider-Man: Into the Spider-Verse. The Spider-Verse won an Oscar." },
+  25: { runtime:"92 min",  rating:"3.2", plot:"A detective is reluctantly partnered with a talking T-Rex to solve murders. Whoopi Goldberg tried to quit, was sued, and lost. Cost $35M. Made $657K." },
+  26: { runtime:"110 min", rating:"4.6", plot:"A duck from outer space helps a rock band stop an alien invasion. George Lucas executive produced. The film implies Howard and a human woman are romantically compatible. Lucas has not elaborated." },
+  27: { runtime:"121 min", rating:"2.4", plot:"A mobster kidnaps a prosecutor's brother and receives an unwanted partner. The Bennifer tabloid coverage meant critics had made up their minds before seeing a single frame." },
+  28: { runtime:"89 min",  rating:"3.3", plot:"A spoiled woman and a deckhand are stranded on a deserted island. Directed by Guy Ritchie. Starred his wife, Madonna. They divorced six years later." },
+  29: { runtime:"104 min", rating:"3.9", plot:"Two plumbers travel to a parallel universe to rescue a princess from a lizard-human king. Bob Hoskins called it the worst thing he ever made." },
+  30: { runtime:"109 min", rating:"5.2", plot:"Explorers seek diamonds guarded by killer apes in the Congo. Tim Curry voices a gorilla via a glove that translates sign language. The gorilla suit cost approximately $1 million." },
+  31: { runtime:"125 min", rating:"3.8", plot:"Batman and Robin fight Mr. Freeze, Poison Ivy, and Bane. Schumacher apologized publicly and repeatedly. The Batsuit nipples were his decision. He apologized for that separately." },
+  32: { runtime:"88 min",  rating:"3.9", plot:"A killer's brother continues the Christmas rampage. Half the runtime is footage from the first film. 'Garbage Day!' has more YouTube views than the film had theatrical viewers." },
+};
+
 const RND = ["Round of 32", "Round of 16", "Elite 8", "Final Four", "Championship"];
 const TOTAL_PICKS = 31; // 16+8+4+2+1
 
@@ -419,7 +455,7 @@ export default function App() {
           }}>{showNotes ? "Hide Notes" : "📝 Notes"}</button>
         </div>
 
-        {showNotes && <NotesPanel mob={mob} notes={notes} updateNote={updateNote} />}
+        {showNotes && <NotesPanel mob={mob} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />}
         {fb && <FullBracket mob={mob} rds={rds} cr={cr} cm={cm} upsets={upsets} />}
 
         {/* Champion view */}
@@ -453,23 +489,23 @@ export default function App() {
             <div style={{ textAlign:"center", marginBottom:mob?12:16, fontSize:mob?14:13, color:"#5a4838" }}>Match {mn} of {mt}</div>
             {mob ? (
               <div style={{ display:"flex", flexDirection:"column", gap:0, alignItems:"center" }}>
-                <Card mob m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} />
+                <Card mob m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
                 <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:12, padding:"10px 0", width:"100%" }}>
                   <div style={{ flex:1, height:1, background:"linear-gradient(90deg,transparent,rgba(192,48,32,.15))" }} />
                   <span style={{ fontSize:14, fontWeight:800, color:"#6a5a48", letterSpacing:3 }}>VS</span>
                   <div style={{ flex:1, height:1, background:"linear-gradient(90deg,rgba(192,48,32,.15),transparent)" }} />
                 </div>
-                <Card mob m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} />
+                <Card mob m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
               </div>
             ) : (
               <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:0 }}>
-                <Card key={mu[0].seed} m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} />
+                <Card key={mu[0].seed} m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
                 <div style={{ padding:"0 22px", flexShrink:0, display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
                   <div style={{ width:1, height:32, background:"linear-gradient(180deg,transparent,rgba(192,48,32,.12))" }} />
                   <span style={{ fontSize:13, fontWeight:800, color:"#6a5a48", letterSpacing:4 }}>VS</span>
                   <div style={{ width:1, height:32, background:"linear-gradient(180deg,rgba(192,48,32,.12),transparent)" }} />
                 </div>
-                <Card key={mu[1].seed} m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} />
+                <Card key={mu[1].seed} m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
               </div>
             )}
 
@@ -513,10 +549,11 @@ export default function App() {
   );
 }
 
-function Card({ m, h, a, d, onH, onC, notes, updateNote, mob }) {
+function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
   const c = CLR[m.cat];
   const [showCardNotes, setShowCardNotes] = useState(false);
   const note = notes?.[m.seed] || "";
+  const meta = movieMeta?.[m.seed];
   const rTop = showCardNotes ? (mob ? "14px 14px 0 0" : "16px 16px 0 0") : (mob ? 14 : 16);
 
   const cardBg = h
@@ -564,9 +601,9 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob }) {
         </div>
 
         {/* Content */}
-        <div style={{ flex:1, padding:mob?"11px 12px 11px 10px":"13px 16px 13px 12px", display:"flex", flexDirection:"column", justifyContent:"center", gap:mob?4:5, minWidth:0 }}>
+        <div style={{ flex:1, padding:mob?"11px 12px 11px 10px":"13px 16px 13px 12px", display:"flex", flexDirection:"column", justifyContent:"center", gap:mob?3:4, minWidth:0 }}>
 
-          {/* Top row: region badge + year + notes dot */}
+          {/* Top row: quadrant badge + year + notes dot */}
           <div style={{ display:"flex", alignItems:"center", gap:6 }}>
             <span style={{ padding:"1px 7px", borderRadius:20, background:BADGE_CLR[m.cat].bg, color:BADGE_CLR[m.cat].tx, fontSize:9, fontWeight:700, letterSpacing:.4 }}>
               {REG_EMOJI[Math.floor((m.seed - 1) / 8)]} {["Passionate","Celeb Shame","Comedy RIP","How Did This"][Math.floor((m.seed - 1) / 8)]}
@@ -585,20 +622,35 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob }) {
             transition:"color .18s",
           }}>{m.name}</div>
 
-          {/* IMDb link */}
-          <div style={{ display:"flex", alignItems:"center", gap:7 }}>
+          {/* Stats row: runtime + rating + IMDb */}
+          <div style={{ display:"flex", alignItems:"center", gap:7, flexWrap:"wrap" }}>
+            {meta?.runtime && <span style={{ fontSize:10, color:"#6a5a48", fontVariantNumeric:"tabular-nums" }}>{meta.runtime}</span>}
+            {meta?.rating && <span style={{ fontSize:10, color:"#a07818", fontWeight:700 }}>★ {meta.rating}</span>}
             {m.imdb && (
               <a href={m.imdb} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
-                style={{ padding:"1px 5px", borderRadius:3, background:"#e5b80010", color:"#c49a00", fontSize:9, fontWeight:700, textDecoration:"none", border:"1px solid #e5b80018", letterSpacing:.3 }}>IMDb ↗</a>
+                style={{ padding:"1px 5px", borderRadius:3, background:"#8a582010", color:"#b07830", fontSize:9, fontWeight:700, textDecoration:"none", border:"1px solid rgba(138,88,32,.15)", letterSpacing:.3 }}>IMDb ↗</a>
             )}
           </div>
+
+          {/* Plot blurb — desktop hover only */}
+          {!mob && meta?.plot && (
+            <div style={{
+              fontSize:11, color:"#7a6a58", lineHeight:1.5,
+              overflow:"hidden", display:"-webkit-box",
+              WebkitLineClamp:3, WebkitBoxOrient:"vertical",
+              maxHeight: h ? "54px" : "0px",
+              opacity: h ? 1 : 0,
+              transition:"opacity .2s, max-height .22s",
+              marginTop: h ? 2 : 0,
+            }}>{meta.plot}</div>
+          )}
 
           {mob && <div style={{ fontSize:9, color:c.ac, fontWeight:700, letterSpacing:1.8, textTransform:"uppercase", opacity:.35 }}>Tap to pick worst</div>}
         </div>
 
         {/* Hover left accent */}
         <div style={{ position:"absolute", left:0, top:"15%", bottom:"15%", width:3, background:`linear-gradient(180deg,transparent,${c.ac}aa,transparent)`, borderRadius:2, opacity:h&&!mob?1:0, transition:"opacity .18s" }} />
-        {h&&!mob&&!a && <div style={{ position:"absolute", right:14, top:"50%", transform:"translateY(-50%)", fontSize:11, color:c.ac, fontWeight:700, letterSpacing:1, opacity:.6 }}>Pick worst →</div>}
+        {h&&!mob&&!a&&!meta?.plot && <div style={{ position:"absolute", right:14, top:"50%", transform:"translateY(-50%)", fontSize:11, color:c.ac, fontWeight:700, letterSpacing:1, opacity:.6 }}>Pick worst →</div>}
       </button>
 
       <div style={{ textAlign:"center", marginTop:showCardNotes?0:(mob?3:3) }}>
