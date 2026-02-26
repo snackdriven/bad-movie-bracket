@@ -2,6 +2,8 @@
 
 **32 films. 4 quadrants. 5 rounds. One champion of failure.**
 
+**[Play it live](https://snackdriven.github.io/bad-movie-bracket/)**
+
 A March Madness-style single-elimination bracket for crowning the worst movie ever made. Pick the worst in every head-to-head matchup until only one cinematic disaster remains standing. Think of it as the Oscars, but for movies that made their directors apologize publicly.
 
 ## The Quadrants
