@@ -189,7 +189,11 @@ export default function App() {
   const [init] = useState(() => {
     const s = loadLS("bmt-state", null);
     if (!s || s.v !== STATE_VERSION) return null;
-    return { ...s, rds: s.rds.map(r => desMatch(r)) };
+    try {
+      return { ...s, rds: s.rds.map(r => desMatch(r)) };
+    } catch {
+      return null; // corrupt state, start fresh
+    }
   });
 
   // Bracket state — rds[0] is always initialized from R1
@@ -202,12 +206,10 @@ export default function App() {
   const [ch, setCh] = useState(() => init?.ch || null);
   const [hv, setHv] = useState(null);
   const [an, setAn] = useState(null);
-  const [bk, setBk] = useState(false);
   const [fb, setFb] = useState(false);
   const [hi, setHi] = useState(() => init?.hi || []);
   const [upsets, setUpsets] = useState(() => init?.upsets ?? []);
   const [upFlash, setUpFlash] = useState(false);
-  const [fact, setFact] = useState(null);
   const [copiedBracket, setCopiedBracket] = useState(false);
 
   // Notes
@@ -247,24 +249,10 @@ export default function App() {
 
   // Easter egg: press ? to open the repo
   useEffect(() => {
-    const h = e => { if (e.key === "?" && !e.target.closest("input,textarea")) window.open("https://github.com/snackdriven/bad-movie-bracket", "_blank"); };
+    const h = e => { if (e.key === "?" && !e.target.closest("input,textarea")) window.open("https://github.com/snackdriven/bad-movie-bracket", "_blank", "noopener,noreferrer"); };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
   }, []);
-
-  // Auth state listener — reacts to setSession() above or existing sessions
-  useEffect(() => {
-    let pulled = false;
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setSbUser(session?.user ?? null);
-      if (session?.user && !pulled && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
-        pulled = true;
-        pullFromSupabase();
-      }
-      if (event === "SIGNED_OUT") pulled = false;
-    });
-    return () => subscription.unsubscribe();
-  }, []); // intentional: runs once
 
   const pullFromSupabase = async () => {
     const { data, error } = await supabase
@@ -282,6 +270,20 @@ export default function App() {
     }
   };
 
+  // Auth state listener — reacts to setSession() above or existing sessions
+  useEffect(() => {
+    let pulled = false;
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setSbUser(session?.user ?? null);
+      if (session?.user && !pulled && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
+        pulled = true;
+        pullFromSupabase();
+      }
+      if (event === "SIGNED_OUT") pulled = false;
+    });
+    return () => subscription.unsubscribe();
+  }, []); // intentional: runs once
+
   // Auto-push on state change (2s debounce)
   const syncTimerRef = useRef(null);
   useEffect(() => {
@@ -296,6 +298,7 @@ export default function App() {
       setSyncStatus(error ? "error" : "synced");
       setTimeout(() => setSyncStatus("idle"), 3000);
     }, 2000);
+    return () => clearTimeout(syncTimerRef.current);
   }, [rds, cr, cm, ch, hi, upsets, notes, sbUser]);
 
   const mu = rds[cr]?.[cm];
@@ -342,7 +345,6 @@ export default function App() {
     if (!hi.length) return;
     const l = hi[hi.length - 1];
     setHi(hi.slice(0, -1));
-    setFact(null);
     if (l.wasUpset) setUpsets(u => u.slice(0, -1));
     if (ch) setCh(null);
     const nr = rds.slice(0, l.r + 1).map((rd, ri2) => rd.map((m, mi) => {
@@ -355,8 +357,8 @@ export default function App() {
   const reset = () => {
     setRds([R1.map(([a, b]) => [MOVIES[a], MOVIES[b]])]);
     setCr(0); setCm(0); setCh(null); setHi([]); setUpsets([]);
-    setUpFlash(false); setFact(null); setCopiedBracket(false);
-    setBk(false); setFb(false);
+    setUpFlash(false); setCopiedBracket(false);
+    setFb(false);
     saveLS("bmt-state", null);
   };
 
@@ -385,7 +387,17 @@ export default function App() {
     navigator.clipboard.writeText(exportBracket()).then(() => {
       setCopiedBracket(true);
       setTimeout(() => setCopiedBracket(false), 1500);
-    }).catch(() => {});
+    }).catch(() => {
+      // Clipboard unavailable (insecure context, permissions denied)
+      // Fall back to selecting text from a temporary element
+      const el = document.createElement("textarea");
+      el.value = exportBracket();
+      el.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(el);
+      el.select();
+      try { document.execCommand("copy"); setCopiedBracket(true); setTimeout(() => setCopiedBracket(false), 1500); } catch { /* give up */ }
+      document.body.removeChild(el);
+    });
   };
 
   return (
@@ -393,16 +405,13 @@ export default function App() {
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
       <Dots mob={mob} />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
-        @keyframes tw{0%,100%{opacity:.04}50%{opacity:.9}}
+@keyframes tw{0%,100%{opacity:.04}50%{opacity:.9}}
         @keyframes su{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
         @keyframes cb{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
         @keyframes wg{0%,100%{text-shadow:0 0 20px rgba(204,48,32,.4),0 0 40px rgba(160,120,24,.1)}50%{text-shadow:0 0 44px rgba(204,48,32,.8),0 0 80px rgba(160,120,24,.25)}}
         @keyframes ch{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(.98);opacity:.6}}
         @keyframes fi{from{opacity:0}to{opacity:1}}
-        @keyframes pp{0%,100%{border-color:rgba(204,48,32,.12)}50%{border-color:rgba(204,48,32,.38)}}
         @keyframes uf{0%{opacity:0;transform:translateY(-8px) scale(.9)}20%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:1}100%{opacity:0}}
-        @keyframes flicker{0%,100%{opacity:1}92%{opacity:.94}96%{opacity:.98}}
         @media(max-width:600px){
           .mob-btn:active{opacity:.7!important;transform:scale(.97)!important}
           .mob-card:active{transform:scale(.98)!important;opacity:.9!important}
@@ -418,7 +427,7 @@ export default function App() {
         </div>
 
         {/* Progress bar */}
-        <div style={{ background:"rgba(255,255,255,.04)", borderRadius:20, height:mob?6:5, marginBottom:mob?6:6, overflow:"hidden" }}>
+        <div role="progressbar" aria-valuenow={Math.round(prog)} aria-valuemin={0} aria-valuemax={100} aria-label={`${hi.length} of ${TOTAL_PICKS} picks made`} style={{ background:"rgba(255,255,255,.04)", borderRadius:20, height:mob?6:5, marginBottom:mob?6:6, overflow:"hidden" }}>
           <div style={{ height:"100%", width:`${prog}%`, background:"linear-gradient(90deg,#cc3020,#906020,#a07818)", borderRadius:20, transition:"width .5s" }} />
         </div>
         <div style={{ display:"flex", justifyContent:"space-between", fontSize:mob?12:11, color:"#7a6a58", marginBottom:mob?10:14 }}>
@@ -459,7 +468,7 @@ export default function App() {
           }}>{showNotes ? "Hide Notes" : "📝 Notes"}</button>
         </div>
 
-        {showNotes && <NotesPanel mob={mob} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />}
+        {showNotes && <NotesPanel mob={mob} notes={notes} updateNote={updateNote} />}
         {fb && <FullBracket mob={mob} rds={rds} cr={cr} cm={cm} upsets={upsets} />}
 
         {/* Champion view */}
@@ -484,7 +493,6 @@ export default function App() {
               <Btn mob={mob} p onClick={reset}>Run It Back</Btn>
               <Btn mob={mob} s mu onClick={copyBracket}>{copiedBracket ? "✓ Copied!" : "📋 Export"}</Btn>
             </div>
-            {bk && <BV mob={mob} rds={rds} />}
           </div>
 
         ) : mu ? (
@@ -534,10 +542,8 @@ export default function App() {
               </div>
             )}
 
-            {bk && <BV mob={mob} rds={rds} cr={cr} cm={cm} />}
-
             {/* Up Next */}
-            {!bk && rds[cr] && cm + 1 < rds[cr].length && (
+            {rds[cr] && cm + 1 < rds[cr].length && (
               <div style={{ marginTop:mob?24:30 }}>
                 <div style={{ fontSize:mob?11:10, color:"#7a6a58", marginBottom:mob?8:8, letterSpacing:2.5, textTransform:"uppercase", fontWeight:700 }}>Up Next</div>
                 {rds[cr].slice(cm + 1, cm + 2).map((m, i) => (
@@ -607,7 +613,7 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
           {hasPoster ? <>
             <img src={meta.poster} alt="" style={{
               width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top",
-              display:"block", opacity:a?.45:1,
+              display:"block", opacity:a ? 0.45 : 1,
               transition:"opacity .3s, transform .2s",
               transform: h&&!mob?"scale(1.05)":"scale(1)",
             }}/>
@@ -681,10 +687,14 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
       </button>
 
       <div style={{ textAlign:"center", marginTop:showCardNotes?0:(mob?3:3) }}>
-        <button onClick={e => { e.stopPropagation(); setShowCardNotes(!showCardNotes); }} style={{
-          background:"transparent", border:"none", color:"#7a6a58", fontSize:mob?11:10, cursor:"pointer",
-          padding:mob?"5px 14px":"2px 8px", letterSpacing:.5, minHeight:mob?32:undefined,
-        }}>{showCardNotes ? "hide notes ▲" : "notes ▼"}</button>
+        <button
+          onClick={e => { e.stopPropagation(); setShowCardNotes(!showCardNotes); }}
+          aria-expanded={showCardNotes}
+          aria-label={showCardNotes ? `Hide notes for ${m.name}` : `Add notes for ${m.name}`}
+          style={{
+            background:"transparent", border:"none", color:"#7a6a58", fontSize:mob?11:10, cursor:"pointer",
+            padding:mob?"5px 14px":"2px 8px", letterSpacing:.5, minHeight:mob?32:undefined,
+          }}>{showCardNotes ? "hide notes ▲" : "notes ▼"}</button>
       </div>
       {showCardNotes && <CardNotes seed={m.seed} note={note} updateNote={updateNote} ac={c.ac} bg={c.bg} mob={mob} transparent />}
     </div>
@@ -695,6 +705,15 @@ function AuthModal({ onClose }) {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState(null);
+  const dialogRef = useRef(null);
+  useEffect(() => {
+    const h = e => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", h);
+    // Move focus into dialog on open
+    const firstFocusable = dialogRef.current?.querySelector("input,button");
+    firstFocusable?.focus();
+    return () => window.removeEventListener("keydown", h);
+  }, [onClose]);
   const sendLink = async () => {
     setErr(null);
     const { error } = await supabase.auth.signInWithOtp({
@@ -708,9 +727,9 @@ function AuthModal({ onClose }) {
     }
   };
   return (
-    <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.8)", zIndex:100, display:"flex", alignItems:"center", justifyContent:"center" }}>
-      <div style={{ background:"#100d0a", border:"1px solid rgba(204,48,32,.15)", borderRadius:16, padding:"28px 24px", maxWidth:380, width:"90%", animation:"su .2s" }}>
-        <h3 style={{ color:"#d4ccba", margin:"0 0 8px", fontSize:18, fontFamily:"'Bebas Neue',sans-serif", fontWeight:400, letterSpacing:"0.06em" }}>Sync Across Devices</h3>
+    <div role="presentation" style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.8)", zIndex:100, display:"flex", alignItems:"center", justifyContent:"center" }} onClick={e => e.target === e.currentTarget && onClose()}>
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="auth-modal-title" style={{ background:"#100d0a", border:"1px solid rgba(204,48,32,.15)", borderRadius:16, padding:"28px 24px", maxWidth:380, width:"90%", animation:"su .2s" }}>
+        <h3 id="auth-modal-title" style={{ color:"#d4ccba", margin:"0 0 8px", fontSize:18, fontFamily:"'Bebas Neue',sans-serif", fontWeight:400, letterSpacing:"0.06em" }}>Sync Across Devices</h3>
         {sent ? (
           <p style={{ color:"#5a4838", fontSize:14, lineHeight:1.6 }}>Check your email for a magic link. Close this when you're signed in.</p>
         ) : (
@@ -828,7 +847,7 @@ function NoteRow({ m, note, c, updateNote, mob }) {
 function Dots({ mob }) {
   const dots = mob ? DOTS.slice(0, 30) : DOTS;
   return (
-    <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:0 }}>
+    <div aria-hidden="true" style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:0 }}>
       {dots.map((d, i) => (
         <div key={i} style={{
           position:"absolute", width:d.w, height:d.h,
@@ -851,33 +870,6 @@ function Btn({ children, onClick, p, s, mu, mob }) {
       fontSize: s?(mob?13:12):(mob?15:14), fontWeight:p?700:600, cursor:"pointer",
       minHeight:mob?48:undefined, transition:"all .15s", WebkitTapHighlightColor:"transparent",
     }}>{children}</button>
-  );
-}
-
-function BV({ rds, cr, cm, mob }) {
-  return (
-    <div style={{ marginTop:mob?20:28, padding:mob?14:16, background:"rgba(255,255,255,.02)", borderRadius:mob?12:14, border:"1px solid rgba(255,255,255,.05)", textAlign:"left", animation:"fi .3s" }}>
-      <h3 style={{ fontSize:mob?15:14, fontWeight:700, color:"#6a5a48", margin:mob?"0 0 12px":"0 0 14px", letterSpacing:1 }}>Bracket Results</h3>
-      {rds.map((r, i) => <RB key={i} t={RND[i]} ms={r} cr={cr} cm={cm} ri={i} mob={mob} />)}
-    </div>
-  );
-}
-
-function RB({ t, ms, cr, cm, ri, mob }) {
-  return (
-    <div style={{ marginBottom:mob?14:16 }}>
-      <div style={{ fontSize:mob?11:10, letterSpacing:mob?2:2.5, textTransform:"uppercase", color:"#7a6a58", marginBottom:mob?6:6, fontWeight:700 }}>{t}</div>
-      {ms.map((m, mi) => {
-        const w = m.winner, cur = ri===cr&&mi===cm;
-        return (
-          <div key={mi} style={{ display:"flex", alignItems:"center", gap:mob?6:6, fontSize:mob?13:12, padding:mob?"5px 8px":"3px 8px", borderRadius:6, background:cur?"rgba(204,48,32,.06)":"transparent" }}>
-            <MN m={m[0]} w={w} r mob={mob} />
-            <span style={{ color:"#6a5a48", fontSize:mob?10:9, letterSpacing:1, flexShrink:0 }}>vs</span>
-            <MN m={m[1]} w={w} mob={mob} />
-          </div>
-        );
-      })}
-    </div>
   );
 }
 
