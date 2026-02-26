@@ -417,7 +417,7 @@ export default function App() {
         {/* Header */}
         <div style={{ textAlign:"center", marginBottom:mob?20:28 }}>
           <div style={{ fontSize:mob?10:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#6a5a48", marginBottom:mob?4:6 }}>32 Films · 4 Quadrants · Pure System Failure</div>
-          <h1 style={{ fontSize:"clamp(28px,7vw,62px)", fontWeight:400, margin:"0 0 4px", fontFamily:"'Jersey 20',sans-serif", letterSpacing:"0.04em", textTransform:"uppercase", background:"linear-gradient(135deg,#e04030 0%,#901828 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", animation:"title-flicker 4s ease-in-out infinite" }}>Worst Movie Tournament</h1>
+          <h1 style={{ fontSize:"clamp(34px,8vw,76px)", fontWeight:400, margin:"0 0 4px", fontFamily:"'Jersey 20',sans-serif", letterSpacing:"0.04em", textTransform:"uppercase", background:"linear-gradient(135deg,#e04030 0%,#901828 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", animation:"title-flicker 4s ease-in-out infinite" }}>Worst Movie Tournament</h1>
           <div style={{ fontSize:mob?12:13, color:"#6a5a48", letterSpacing:.3 }}>Pick the worst. Crown the champion of failure.</div>
         </div>
 
