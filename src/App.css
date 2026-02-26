@@ -2,7 +2,7 @@
 
 /* CRT: Scanlines */
 @keyframes crt-scanlines-flicker {
-  0%   { opacity: 0.6; }
+  0%   { opacity: 0.85; }
   50%  { opacity: 1; }
 }
 
