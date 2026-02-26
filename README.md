@@ -62,7 +62,7 @@ React 19 + Vite. Supabase for auth. Zero CSS frameworks, all inline styles, wash
 
 ---
 
-If this has broken you and you need something with feelings and wonder and hope, there's also a [Disney × Pixar Bracket](https://snackdriven.github.io/disney-bracket/). Fair warning: it's not easier.
+If this has broken you and you need something with feelings and wonder and hope, there's also a [Disney × Pixar Bracket](https://github.com/snackdriven/disney-bracket). Fair warning: it's not easier.
 
 ---
 
