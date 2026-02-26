@@ -486,7 +486,6 @@ export default function App() {
             )}
             <div style={{ marginTop:mob?24:40, display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap" }}>
               <Btn mob={mob} p onClick={reset}>Run It Back</Btn>
-              <Btn mob={mob} onClick={() => setBk(!bk)}>{bk?"Hide":"View"} Bracket</Btn>
               <Btn mob={mob} s mu onClick={copyBracket}>{copiedBracket ? "✓ Copied!" : "📋 Export"}</Btn>
             </div>
             {bk && <BV mob={mob} rds={rds} />}
