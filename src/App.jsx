@@ -26,20 +26,20 @@ const REG = ["Passionate Disasters", "Celebrity Shame", "Comedy Graveyard", "How
 const REG_EMOJI = ["💀", "🗑️", "🎬", "🔥"];
 // Washed-out cinema poster palette — aged, faded, never neon.
 // 💀 Faded crimson  🗑️ Tarnished bronze  🎬 Faded olive  🔥 Dusty slate
-const REG_COLOR = ["#c04030", "#b07830", "#7a9850", "#5a7888"];
+const REG_COLOR = ["#cc3020", "#a87828", "#7c9c50", "#5a8090"];
 
 // Per-quadrant card color schemes. cat = "PD"|"CS"|"CG"|"HM"
 const CLR = {
-  PD: { bg: "#0d0706", ac: "#9a2818", gl: "rgba(154,40,24,.16)",  tx: "#c85040" },
-  CS: { bg: "#0d0a06", ac: "#8a5820", gl: "rgba(138,88,32,.16)",  tx: "#c09040" },
-  CG: { bg: "#080c06", ac: "#5a7040", gl: "rgba(90,112,64,.16)",  tx: "#8aaa60" },
-  HM: { bg: "#060a0d", ac: "#3a5060", gl: "rgba(58,80,96,.16)",   tx: "#6090a8" },
+  PD: { bg: "#0e0706", ac: "#b02818", gl: "rgba(176,40,24,.18)",  tx: "#d45040" },
+  CS: { bg: "#0e0a06", ac: "#906020", gl: "rgba(144,96,32,.18)",  tx: "#c89840" },
+  CG: { bg: "#080d06", ac: "#607848", gl: "rgba(96,120,72,.18)",  tx: "#90b060" },
+  HM: { bg: "#060b0e", ac: "#3c5868", gl: "rgba(60,88,104,.18)",  tx: "#6898b0" },
 };
 const BADGE_CLR = {
-  PD: { bg: "#9a281810", tx: "#c04030" },
-  CS: { bg: "#8a582010", tx: "#b07830" },
-  CG: { bg: "#5a704010", tx: "#7a9850" },
-  HM: { bg: "#3a506010", tx: "#5a7888" },
+  PD: { bg: "#b0281810", tx: "#cc3020" },
+  CS: { bg: "#90602010", tx: "#a87828" },
+  CG: { bg: "#60784810", tx: "#7c9c50" },
+  HM: { bg: "#3c586810", tx: "#5a8090" },
 };
 
 // Bad movie trivia facts
@@ -318,10 +318,6 @@ export default function App() {
     setHi(h => [...h, { i: cm, r: cr, wasUpset: isUpset }]);
     setTimeout(() => {
       setAn(null);
-      if (FACTS[w.name]) {
-        setFact(FACTS[w.name]);
-        setTimeout(() => setFact(null), 5500);
-      }
       const nr = rds.map((rd, ri2) => rd.map((m, mi) => {
         if (ri2 !== cr || mi !== cm) return m;
         const c = [...m]; c.winner = w; return c;
@@ -393,7 +389,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight:"100vh", background:"linear-gradient(155deg,#0d0b09,#120e0a 35%,#0f0c09 65%,#0d0b09)", fontFamily:"'Barlow','Helvetica Neue',sans-serif", color:"#d4ccba" }}>
+    <div style={{ minHeight:"100vh", position:"relative", zIndex:9999, fontFamily:"'Barlow','Helvetica Neue',sans-serif", color:"#d4ccba" }}>
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
       <Dots mob={mob} />
       <style>{`
@@ -401,10 +397,10 @@ export default function App() {
         @keyframes tw{0%,100%{opacity:.04}50%{opacity:.9}}
         @keyframes su{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
         @keyframes cb{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
-        @keyframes wg{0%,100%{text-shadow:0 0 20px rgba(192,48,32,.4),0 0 40px rgba(160,120,24,.1)}50%{text-shadow:0 0 44px rgba(192,48,32,.8),0 0 80px rgba(160,120,24,.25)}}
+        @keyframes wg{0%,100%{text-shadow:0 0 20px rgba(204,48,32,.4),0 0 40px rgba(160,120,24,.1)}50%{text-shadow:0 0 44px rgba(204,48,32,.8),0 0 80px rgba(160,120,24,.25)}}
         @keyframes ch{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(.98);opacity:.6}}
         @keyframes fi{from{opacity:0}to{opacity:1}}
-        @keyframes pp{0%,100%{border-color:rgba(192,48,32,.12)}50%{border-color:rgba(192,48,32,.38)}}
+        @keyframes pp{0%,100%{border-color:rgba(204,48,32,.12)}50%{border-color:rgba(204,48,32,.38)}}
         @keyframes uf{0%{opacity:0;transform:translateY(-8px) scale(.9)}20%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:1}100%{opacity:0}}
         @keyframes flicker{0%,100%{opacity:1}92%{opacity:.94}96%{opacity:.98}}
         @media(max-width:600px){
@@ -417,13 +413,13 @@ export default function App() {
         {/* Header */}
         <div style={{ textAlign:"center", marginBottom:mob?20:28 }}>
           <div style={{ fontSize:mob?10:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#6a5a48", marginBottom:mob?4:6 }}>32 Films · 4 Quadrants · Pure System Failure</div>
-          <h1 style={{ fontSize:"clamp(28px,7vw,62px)", fontWeight:400, margin:"0 0 4px", fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", background:"linear-gradient(135deg,#c83020 0%,#a02818 45%,#b07818 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>Worst Movie Tournament</h1>
+          <h1 style={{ fontSize:"clamp(34px,8vw,76px)", fontWeight:400, margin:"0 0 4px", fontFamily:"'Jersey 20',sans-serif", letterSpacing:"0.04em", textTransform:"uppercase", background:"linear-gradient(135deg,#e04030 0%,#901828 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", animation:"title-flicker 4s ease-in-out infinite" }}>Worst Movie Tournament</h1>
           <div style={{ fontSize:mob?12:13, color:"#6a5a48", letterSpacing:.3 }}>Pick the worst. Crown the champion of failure.</div>
         </div>
 
         {/* Progress bar */}
         <div style={{ background:"rgba(255,255,255,.04)", borderRadius:20, height:mob?6:5, marginBottom:mob?6:6, overflow:"hidden" }}>
-          <div style={{ height:"100%", width:`${prog}%`, background:"linear-gradient(90deg,#c03020,#8a5820,#a07818)", borderRadius:20, transition:"width .5s" }} />
+          <div style={{ height:"100%", width:`${prog}%`, background:"linear-gradient(90deg,#cc3020,#906020,#a07818)", borderRadius:20, transition:"width .5s" }} />
         </div>
         <div style={{ display:"flex", justifyContent:"space-between", fontSize:mob?12:11, color:"#7a6a58", marginBottom:mob?10:14 }}>
           <span>{hi.length}/{TOTAL_PICKS} decided</span>
@@ -448,9 +444,9 @@ export default function App() {
         {/* Full Bracket + Notes toggles */}
         <div style={{ textAlign:"center", marginBottom:mob?14:16, display:"flex", gap:mob?10:8, justifyContent:"center", flexWrap:"wrap" }}>
           <button className={mob?"mob-btn":""} onClick={() => setFb(!fb)} style={{
-            background: fb?"rgba(192,48,32,.1)":"rgba(255,255,255,.04)",
-            border: fb?"1px solid rgba(192,48,32,.3)":"1px solid rgba(255,255,255,.07)",
-            color: fb?"#c03020":"#6a5a48", padding:mob?"10px 18px":"6px 18px", borderRadius:10,
+            background: fb?"rgba(204,48,32,.1)":"rgba(255,255,255,.04)",
+            border: fb?"1px solid rgba(204,48,32,.3)":"1px solid rgba(255,255,255,.07)",
+            color: fb?"#cc3020":"#6a5a48", padding:mob?"10px 18px":"6px 18px", borderRadius:10,
             fontSize:mob?13:12, fontWeight:600, cursor:"pointer", letterSpacing:.5,
             transition:"all .15s", minHeight:mob?48:undefined,
           }}>{fb ? "Hide Bracket" : "📋 Full Bracket"}</button>
@@ -470,8 +466,8 @@ export default function App() {
         {ch ? (
           <div style={{ textAlign:"center", animation:"su .5s ease-out", padding:mob?"24px 12px":"40px 20px" }}>
             <div style={{ fontSize:mob?42:56, animation:"cb 2s ease-in-out infinite", marginBottom:mob?8:12 }}>💀</div>
-            <div style={{ fontSize:mob?12:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#c03020", marginBottom:mob?8:10 }}>Worst of the Worst</div>
-            <div style={{ fontSize:"clamp(28px,7vw,52px)", fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.04em", color:"#c03020", animation:"wg 2s ease-in-out infinite", marginBottom:6 }}>{ch.name}</div>
+            <div style={{ fontSize:mob?12:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#cc3020", marginBottom:mob?8:10 }}>Worst of the Worst</div>
+            <div style={{ fontSize:"clamp(28px,7vw,52px)", fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.04em", color:"#cc3020", animation:"wg 2s ease-in-out infinite", marginBottom:6 }}>{ch.name}</div>
             <div style={{ fontSize:mob?14:14, color:"#5a4838" }}>
               {REG_EMOJI[Math.floor((ch.seed - 1) / 8)]} {REG[Math.floor((ch.seed - 1) / 8)]} · {ch.year} · seed #{ch.seed}
             </div>
@@ -486,7 +482,6 @@ export default function App() {
             )}
             <div style={{ marginTop:mob?24:40, display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap" }}>
               <Btn mob={mob} p onClick={reset}>Run It Back</Btn>
-              <Btn mob={mob} onClick={() => setBk(!bk)}>{bk?"Hide":"View"} Bracket</Btn>
               <Btn mob={mob} s mu onClick={copyBracket}>{copiedBracket ? "✓ Copied!" : "📋 Export"}</Btn>
             </div>
             {bk && <BV mob={mob} rds={rds} />}
@@ -499,9 +494,9 @@ export default function App() {
               <div style={{ display:"flex", flexDirection:"column", gap:0, alignItems:"center" }}>
                 <Card mob m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
                 <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:12, padding:"10px 0", width:"100%" }}>
-                  <div style={{ flex:1, height:1, background:"linear-gradient(90deg,transparent,rgba(192,48,32,.15))" }} />
+                  <div style={{ flex:1, height:1, background:"linear-gradient(90deg,transparent,rgba(204,48,32,.15))" }} />
                   <span style={{ fontSize:14, fontWeight:800, color:"#6a5a48", letterSpacing:3 }}>VS</span>
-                  <div style={{ flex:1, height:1, background:"linear-gradient(90deg,rgba(192,48,32,.15),transparent)" }} />
+                  <div style={{ flex:1, height:1, background:"linear-gradient(90deg,rgba(204,48,32,.15),transparent)" }} />
                 </div>
                 <Card mob m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
               </div>
@@ -509,9 +504,9 @@ export default function App() {
               <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:0 }}>
                 <Card key={mu[0].seed} m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
                 <div style={{ padding:"0 22px", flexShrink:0, display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
-                  <div style={{ width:1, height:32, background:"linear-gradient(180deg,transparent,rgba(192,48,32,.12))" }} />
+                  <div style={{ width:1, height:32, background:"linear-gradient(180deg,transparent,rgba(204,48,32,.12))" }} />
                   <span style={{ fontSize:13, fontWeight:800, color:"#6a5a48", letterSpacing:4 }}>VS</span>
-                  <div style={{ width:1, height:32, background:"linear-gradient(180deg,rgba(192,48,32,.12),transparent)" }} />
+                  <div style={{ width:1, height:32, background:"linear-gradient(180deg,rgba(204,48,32,.12),transparent)" }} />
                 </div>
                 <Card key={mu[1].seed} m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />
               </div>
@@ -523,17 +518,21 @@ export default function App() {
               </div>
             )}
 
-            {fact && (
-              <div style={{ margin:mob?"14px 0 0":"14px auto 0", maxWidth:mob?undefined:560, padding:"12px 18px", background:"rgba(255,255,255,.03)", borderRadius:12, border:"1px solid rgba(192,48,32,.12)", fontSize:mob?13:13, color:"#8a7868", fontStyle:"italic", lineHeight:1.6, animation:"su .3s ease-out" }}>
-                🎬 {fact}
-              </div>
-            )}
 
             <div style={{ display:"flex", justifyContent:"center", gap:mob?10:10, marginTop:mob?18:22 }}>
               {hi.length > 0 && <Btn mob={mob} s onClick={undo}>← Undo</Btn>}
-              <Btn mob={mob} s mu onClick={reset}>Reset</Btn>
-              <Btn mob={mob} s mu onClick={() => setBk(!bk)}>{bk?"Hide":"Bracket"}</Btn>
             </div>
+            {hi.length > 0 && (
+              <div style={{ textAlign:"center", marginTop:mob?10:12 }}>
+                <button onClick={reset} style={{
+                  background:"none", border:"none", color:"#5a4a38", fontSize:mob?11:10,
+                  cursor:"pointer", letterSpacing:.8, padding:mob?"6px 12px":"4px 10px",
+                  opacity:.6, transition:"opacity .15s",
+                }} onMouseEnter={e => e.currentTarget.style.opacity="1"} onMouseLeave={e => e.currentTarget.style.opacity=".6"}>
+                  ↺ Reset bracket
+                </button>
+              </div>
+            )}
 
             {bk && <BV mob={mob} rds={rds} cr={cr} cm={cm} />}
 
@@ -541,7 +540,7 @@ export default function App() {
             {!bk && rds[cr] && cm + 1 < rds[cr].length && (
               <div style={{ marginTop:mob?24:30 }}>
                 <div style={{ fontSize:mob?11:10, color:"#7a6a58", marginBottom:mob?8:8, letterSpacing:2.5, textTransform:"uppercase", fontWeight:700 }}>Up Next</div>
-                {rds[cr].slice(cm + 1, cm + (mob ? 3 : 5)).map((m, i) => (
+                {rds[cr].slice(cm + 1, cm + 2).map((m, i) => (
                   <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:mob?"8px 12px":"6px 12px", background:"rgba(255,255,255,.02)", borderRadius:8, fontSize:mob?13:12, marginBottom:mob?4:4 }}>
                     <span style={{ fontWeight:600, color:"#5a4838", flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{m[0].name}</span>
                     <span style={{ fontSize:mob?10:9, color:"#6a5a48", letterSpacing:2, margin:"0 8px", flexShrink:0 }}>VS</span>
@@ -648,12 +647,12 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
             {meta?.rating && <span style={{ fontSize:10, color:"#a07818", fontWeight:700 }}>★ {meta.rating}</span>}
             {m.imdb && (
               <a href={m.imdb} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
-                style={{ padding:"1px 5px", borderRadius:3, background:"#8a582010", color:"#b07830", fontSize:9, fontWeight:700, textDecoration:"none", border:"1px solid rgba(138,88,32,.15)", letterSpacing:.3 }}>IMDb ↗</a>
+                style={{ padding:"1px 5px", borderRadius:3, background:"#90602010", color:"#a87828", fontSize:9, fontWeight:700, textDecoration:"none", border:"1px solid rgba(144,96,32,.18)", letterSpacing:.3 }}>IMDb ↗</a>
             )}
           </div>
 
-          {/* Plot blurb — desktop hover only */}
-          {!mob && meta?.plot && (
+          {/* Plot blurb — desktop hover only (hidden when notes open) */}
+          {!mob && !showCardNotes && meta?.plot && (
             <div style={{
               fontSize:11, color:"#7a6a58", lineHeight:1.5,
               overflow:"hidden", display:"-webkit-box",
@@ -663,6 +662,14 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
               transition:"opacity .2s, max-height .22s",
               marginTop: h ? 2 : 0,
             }}>{meta.plot}</div>
+          )}
+
+          {/* Trivia — only when notes are open */}
+          {showCardNotes && FACTS[m.name] && (
+            <div style={{
+              fontSize:11, color:"#8a7a62", lineHeight:1.55,
+              marginTop:2,
+            }}>{FACTS[m.name]}</div>
           )}
 
           {mob && <div style={{ fontSize:9, color:c.ac, fontWeight:700, letterSpacing:1.8, textTransform:"uppercase", opacity:.35 }}>Tap to pick worst</div>}
@@ -702,16 +709,16 @@ function AuthModal({ onClose }) {
   };
   return (
     <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.8)", zIndex:100, display:"flex", alignItems:"center", justifyContent:"center" }}>
-      <div style={{ background:"#100d0a", border:"1px solid rgba(192,48,32,.15)", borderRadius:16, padding:"28px 24px", maxWidth:380, width:"90%", animation:"su .2s" }}>
+      <div style={{ background:"#100d0a", border:"1px solid rgba(204,48,32,.15)", borderRadius:16, padding:"28px 24px", maxWidth:380, width:"90%", animation:"su .2s" }}>
         <h3 style={{ color:"#d4ccba", margin:"0 0 8px", fontSize:18, fontFamily:"'Bebas Neue',sans-serif", fontWeight:400, letterSpacing:"0.06em" }}>Sync Across Devices</h3>
         {sent ? (
           <p style={{ color:"#5a4838", fontSize:14, lineHeight:1.6 }}>Check your email for a magic link. Close this when you're signed in.</p>
         ) : (
           <>
             <p style={{ color:"#5a4838", fontSize:13, margin:"0 0 16px", lineHeight:1.6 }}>Enter your email — we'll send a link. Your bracket syncs automatically once you're in.</p>
-            {err && <p style={{ color:"#c03020", fontSize:13, margin:"0 0 12px" }}>{err}</p>}
+            {err && <p style={{ color:"#cc3020", fontSize:13, margin:"0 0 12px" }}>{err}</p>}
             <input value={email} onChange={e => setEmail(e.target.value)} onKeyDown={e => e.key==="Enter"&&sendLink()} type="email" placeholder="you@example.com"
-              style={{ width:"100%", boxSizing:"border-box", background:"rgba(0,0,0,.4)", border:"1px solid rgba(192,48,32,.15)", borderRadius:8, padding:"10px 12px", color:"#d4ccba", fontSize:14, outline:"none", marginBottom:16, fontFamily:"inherit" }} />
+              style={{ width:"100%", boxSizing:"border-box", background:"rgba(0,0,0,.4)", border:"1px solid rgba(204,48,32,.15)", borderRadius:8, padding:"10px 12px", color:"#d4ccba", fontSize:14, outline:"none", marginBottom:16, fontFamily:"inherit" }} />
             <div style={{ display:"flex", gap:8, justifyContent:"flex-end" }}>
               <Btn mob={false} s mu onClick={onClose}>Cancel</Btn>
               <Btn mob={false} s onClick={sendLink}>Send Magic Link</Btn>
@@ -755,9 +762,9 @@ function NotesPanel({ notes, updateNote, mob }) {
   const [filter, setFilter] = useState("");
   const filtered = MOVIES.filter(m => m.name.toLowerCase().includes(filter.toLowerCase()));
   return (
-    <div style={{ marginBottom:mob?20:24, padding:mob?16:20, background:"rgba(255,255,255,.02)", borderRadius:mob?14:16, border:"1px solid rgba(192,48,32,.1)", animation:"fi .3s" }}>
+    <div style={{ marginBottom:mob?20:24, padding:mob?16:20, background:"rgba(255,255,255,.02)", borderRadius:mob?14:16, border:"1px solid rgba(204,48,32,.1)", animation:"fi .3s" }}>
       <div style={{ marginBottom:mob?12:14 }}>
-        <h3 style={{ fontSize:mob?16:15, fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", color:"#c03020", margin:0 }}>Movie Notes</h3>
+        <h3 style={{ fontSize:mob?16:15, fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", color:"#cc3020", margin:0 }}>Movie Notes</h3>
       </div>
       <input
         value={filter}
@@ -768,7 +775,7 @@ function NotesPanel({ notes, updateNote, mob }) {
           borderRadius:10, padding:mob?"12px 14px":"8px 12px", color:"#b8b0a0", fontSize:mob?16:12, fontFamily:"inherit",
           outline:"none", marginBottom:mob?12:12,
         }}
-        onFocus={e => e.target.style.borderColor="rgba(192,48,32,.3)"}
+        onFocus={e => e.target.style.borderColor="rgba(204,48,32,.3)"}
         onBlur={e => e.target.style.borderColor="rgba(255,255,255,.05)"}
       />
       <div style={{ maxHeight:mob?320:400, overflowY:"auto", paddingRight:4, WebkitOverflowScrolling:"touch" }}>
@@ -837,7 +844,7 @@ function Dots({ mob }) {
 function Btn({ children, onClick, p, s, mu, mob }) {
   return (
     <button className={mob?"mob-btn":""} onClick={onClick} style={{
-      background: p?"linear-gradient(135deg,#c03020,#901a10)":mu?"rgba(255,255,255,.02)":"rgba(255,255,255,.05)",
+      background: p?"linear-gradient(135deg,#cc3020,#961c10)":mu?"rgba(255,255,255,.02)":"rgba(255,255,255,.05)",
       border: p?"none":`1px solid rgba(255,255,255,${mu?.05:.08})`,
       color: p?"#e8e0d0":mu?"#6a5a48":"#8a7868",
       padding: s?(mob?"10px 18px":"6px 16px"):(mob?"14px 26px":"10px 24px"), borderRadius:10,
@@ -863,7 +870,7 @@ function RB({ t, ms, cr, cm, ri, mob }) {
       {ms.map((m, mi) => {
         const w = m.winner, cur = ri===cr&&mi===cm;
         return (
-          <div key={mi} style={{ display:"flex", alignItems:"center", gap:mob?6:6, fontSize:mob?13:12, padding:mob?"5px 8px":"3px 8px", borderRadius:6, background:cur?"rgba(192,48,32,.06)":"transparent" }}>
+          <div key={mi} style={{ display:"flex", alignItems:"center", gap:mob?6:6, fontSize:mob?13:12, padding:mob?"5px 8px":"3px 8px", borderRadius:6, background:cur?"rgba(204,48,32,.06)":"transparent" }}>
             <MN m={m[0]} w={w} r mob={mob} />
             <span style={{ color:"#6a5a48", fontSize:mob?10:9, letterSpacing:1, flexShrink:0 }}>vs</span>
             <MN m={m[1]} w={w} mob={mob} />
@@ -876,7 +883,7 @@ function RB({ t, ms, cr, cm, ri, mob }) {
 
 function MN({ m, w, r, mob, upset }) {
   const won = w?.seed === m.seed, lost = w && !won;
-  const winColor = upset ? "#a07818" : "#c03020";
+  const winColor = upset ? "#a07818" : "#cc3020";
   return (
     <span style={{
       color: won?winColor:lost?"#5a4a3a":"#8a7a68",
@@ -904,7 +911,7 @@ function FullBracket({ rds, cr, cm, mob, upsets }) {
   return (
     <div style={{ marginBottom:mob?20:28, padding:mob?14:20, background:"rgba(255,255,255,.02)", borderRadius:mob?14:16, border:"1px solid rgba(255,255,255,.05)", animation:"fi .3s" }}>
       <div style={{ display:"flex", alignItems:"baseline", justifyContent:"space-between", flexWrap:"wrap", gap:8, margin:"0 0 6px" }}>
-        <h3 style={{ fontSize:mob?16:16, fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", color:"#c8a0a0", margin:0 }}>Full Bracket</h3>
+        <h3 style={{ fontSize:mob?16:16, fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", color:"#c0a888", margin:0 }}>Full Bracket</h3>
         {upsets?.length > 0 && <span style={{ fontSize:mob?11:10, color:"#a07818", opacity:.8, letterSpacing:1 }}>⚡ {upsets.length} upset{upsets.length!==1?"s":""}</span>}
       </div>
       <div style={{ fontSize:mob?13:12, color:"#7a6a58", marginBottom:mob?16:20 }}>32 movies · 4 quadrants · 5 rounds to crown the worst</div>
@@ -925,7 +932,7 @@ function FullBracket({ rds, cr, cm, mob, upsets }) {
               const isUpset = w && w.seed > (w.seed===aSeed ? bSeed : aSeed);
               const winColor = isUpset ? "#a07818" : REG_COLOR[regIdx];
               return (
-                <div key={mi} style={{ display:"flex", alignItems:"center", gap:rowGap, fontSize:rowFs, padding:rowPad, borderRadius:6, background:isCurrentMatch?"rgba(192,48,32,.06)":"transparent" }}>
+                <div key={mi} style={{ display:"flex", alignItems:"center", gap:rowGap, fontSize:rowFs, padding:rowPad, borderRadius:6, background:isCurrentMatch?"rgba(204,48,32,.06)":"transparent" }}>
                   <span style={{
                     flex:1, textAlign:"right", ...ellipsis,
                     color: w?.seed===aSeed?winColor : w&&w.seed!==aSeed?"#5a4a3a" : p?"#8a7a6a":"#8a7a68",
@@ -959,11 +966,11 @@ function FullBracket({ rds, cr, cm, mob, upsets }) {
               const isUpset = w && w.seed > (w.seed===m[0].seed ? m[1] : m[0]).seed;
               const isCur = cr===roundNum && cm===mi;
               return (
-                <div key={mi} style={{ display:"flex", alignItems:"center", gap:rowGap, fontSize:rowFs, padding:rowPad, borderRadius:6, background:isCur?"rgba(192,48,32,.06)":"transparent" }}>
+                <div key={mi} style={{ display:"flex", alignItems:"center", gap:rowGap, fontSize:rowFs, padding:rowPad, borderRadius:6, background:isCur?"rgba(204,48,32,.06)":"transparent" }}>
                   <MN m={m[0]} w={w} r mob={mob} upset={isUpset&&w?.seed===m[0].seed} />
                   <span style={{ color:"#6a5a48", fontSize:vsFs, letterSpacing:1, flexShrink:0 }}>vs</span>
                   <MN m={m[1]} w={w} mob={mob} upset={isUpset&&w?.seed===m[1].seed} />
-                  {w && <span style={{ fontSize:vsFs, color:isUpset?"#a07818":"#c03020", opacity:.5, marginLeft:2 }}>{isUpset?"⚡":"✓"}</span>}
+                  {w && <span style={{ fontSize:vsFs, color:isUpset?"#a07818":"#cc3020", opacity:.5, marginLeft:2 }}>{isUpset?"⚡":"✓"}</span>}
                 </div>
               );
             })}
