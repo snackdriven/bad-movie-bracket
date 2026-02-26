@@ -21,112 +21,112 @@ function useIsMobile(breakpoint = 600) {
   return mob;
 }
 
-// Region metadata
-const REG = ["Video Game Crimes", "Big Budget Collapse", "Ego & Hubris", "Deep-Cut Chaos"];
-const REG_EMOJI = ["🎮", "💸", "🧨", "👻"];
+// Quadrant metadata
+const REG = ["Passionate Disasters", "Celebrity Shame", "Comedy Graveyard", "How Did This Get Made"];
+const REG_EMOJI = ["💀", "🗑️", "🎬", "🔥"];
 // Washed-out cinema poster palette — aged, faded, never neon.
-// 🎮 Faded olive  💸 Tarnished bronze  🧨 Faded crimson  👻 Dusty slate
-const REG_COLOR = ["#7a9850", "#b07830", "#c04030", "#5a7888"];
+// 💀 Faded crimson  🗑️ Tarnished bronze  🎬 Faded olive  🔥 Dusty slate
+const REG_COLOR = ["#c04030", "#b07830", "#7a9850", "#5a7888"];
 
-// Per-region card color schemes. cat = "VG"|"BB"|"EG"|"DC"
+// Per-quadrant card color schemes. cat = "PD"|"CS"|"CG"|"HM"
 const CLR = {
-  VG: { bg: "#080c06", ac: "#5a7040", gl: "rgba(90,112,64,.16)",  tx: "#8aaa60" },
-  BB: { bg: "#0d0a06", ac: "#8a5820", gl: "rgba(138,88,32,.16)",  tx: "#c09040" },
-  EG: { bg: "#0d0706", ac: "#9a2818", gl: "rgba(154,40,24,.16)",  tx: "#c85040" },
-  DC: { bg: "#060a0d", ac: "#3a5060", gl: "rgba(58,80,96,.16)",   tx: "#6090a8" },
+  PD: { bg: "#0d0706", ac: "#9a2818", gl: "rgba(154,40,24,.16)",  tx: "#c85040" },
+  CS: { bg: "#0d0a06", ac: "#8a5820", gl: "rgba(138,88,32,.16)",  tx: "#c09040" },
+  CG: { bg: "#080c06", ac: "#5a7040", gl: "rgba(90,112,64,.16)",  tx: "#8aaa60" },
+  HM: { bg: "#060a0d", ac: "#3a5060", gl: "rgba(58,80,96,.16)",   tx: "#6090a8" },
 };
 const BADGE_CLR = {
-  VG: { bg: "#5a704010", tx: "#7a9850" },
-  BB: { bg: "#8a582010", tx: "#b07830" },
-  EG: { bg: "#9a281810", tx: "#c04030" },
-  DC: { bg: "#3a506010", tx: "#5a7888" },
+  PD: { bg: "#9a281810", tx: "#c04030" },
+  CS: { bg: "#8a582010", tx: "#b07830" },
+  CG: { bg: "#5a704010", tx: "#7a9850" },
+  HM: { bg: "#3a506010", tx: "#5a7888" },
 };
 
 // Bad movie trivia facts
 const FACTS = {
-  "Mortal Kombat: Annihilation": "Shot in under 100 days. Most of the returning cast refused to come back, so their characters were killed off in the first five minutes.",
-  "Super Mario Bros.": "Bob Hoskins called it the worst thing he ever made. He spent the rest of his career carefully vetting scripts. John Leguizamo broke his wrist on set and filmed through it.",
-  "Dragonball Evolution": "Akira Toriyama was so disturbed by the adaptation that it motivated him to return to the franchise and create Dragon Ball Super. The film accidentally saved the anime.",
-  "Street Fighter": "Raul Julia took the role of M. Bison as a gift to his kids, who loved the game. He died before the film was released. His performance is the only watchable thing in it.",
-  "Doom": "Features a first-person shooter sequence shot to look like the game. It lasts about three minutes and was universally cited as the only good part.",
-  "Assassin's Creed": "Michael Fassbender spent years developing this himself. The film bombed so badly it shut down Ubisoft's film division and set back video game movies by half a decade.",
-  "Hitman": "Timothy Olyphant has spoken about this film almost zero times in the fifteen years since it came out.",
-  "Alone in the Dark": "Tara Reid plays an archaeologist. She needed coaching to pronounce basic scientific terms during filming. The studio did not replace her.",
-  "Battlefield Earth": "John Travolta spent a decade getting this made as a passion project. It was filmed entirely in Dutch angles. The cinematographer later said he regrets every frame.",
-  "Cats": "The VFX team worked so fast that theatrical prints shipped with unfinished effects — Universal had to push a patch to digital rental versions. The 'butthole cut' remains unconfirmed.",
-  "Movie 43": "Getting stars to appear required each director to personally beg their friends. The result proves that friendship has limits.",
-  "The Last Airbender": "M. Night Shyamalan cast the Fire Nation and Earth Kingdom predominantly white, a decision so widely criticized it became a Harvard film school case study.",
-  "Fantastic Four": "Miles Teller and the director were openly feuding during production. The studio cut the film without the director's involvement. He saw the final version at a press screening.",
-  "Jupiter Ascending": "The Wachowskis had $176 million and final cut. The result features Eddie Redmayne whispering every line, a half-human half-wolf Channing Tatum, and a bureaucracy subplot.",
-  "After Earth": "Will Smith conceived this as a vehicle for his son. It's cited in film school as one of the clearest examples of unchecked star power producing a bad film.",
-  "The Emoji Movie": "Sony greenlit this over Spider-Man: Into the Spider-Verse, which they were simultaneously delaying. Both came out within a year of each other. Only one of them won an Oscar.",
-  "The Room": "Tommy Wiseau claims it was always intended as a dark comedy. He started claiming this after audiences laughed at it. The film cost $6 million of his own money.",
-  "Gigli": "The tabloid coverage of the Bennifer relationship was so overwhelming that the film had no chance of a fair review. Still: it genuinely is very bad.",
-  "The Love Guru": "Mike Myers spent years developing this as his next franchise. It killed his live-action comedy career. He has been mostly absent from film ever since.",
-  "Jack and Jill": "Won a record 10 Razzie Awards in a single night — every category, including Adam Sandler winning both Worst Actor and Worst Actress for the same film.",
-  "Superbabies: Baby Geniuses 2": "Has held 0% on Rotten Tomatoes for over twenty years. The number of reviews has grown. The score has not moved.",
-  "The Master of Disguise": "Dana Carvey's production company financed and made this. He has said publicly that he wishes he could unmake it.",
-  "Holmes & Watson": "Will Ferrell and John C. Reilly reportedly tried to sell the film to Netflix after test screenings bombed. Netflix passed. Sony released it anyway.",
-  "Cool Cat Saves the Kids": "Director Derek Savage self-financed and self-distributed this. He has aggressively pursued YouTube critics who mocked it, including filing copyright strikes on negative reviews.",
-  "Troll 2": "Has no trolls in it. Was filmed entirely in Morgan, Utah with a cast of locals who had never acted professionally. The child star grew up and made a documentary about it.",
-  "Silent Night, Deadly Night Part 2": "Roughly half the runtime is flashback footage from the first film. The 'Garbage Day!' scene has more YouTube views than the entire film had in its theatrical run.",
-  "Birdemic: Shock and Terror": "Took director James Nguyen four years and $10,000 to make. The attacking birds are animated GIFs placed over the footage. The romantic subplot took longer to film than the birds did.",
-  "Manos: The Hands of Fate": "Made on a $19,000 bet by a fertilizer salesman who claimed anyone could make a movie. He lost the bet. The film was rediscovered by Mystery Science Theater 3000 in 1993.",
-  "The Wicker Man": "Nicolas Cage's most memorable scenes — bees, punching a woman while wearing a bear suit — were largely improvised. He asked to do them. The studio let him.",
-  "The Bye Bye Man": "Deliberately rated PG-13 to maximize opening weekend. Critics noted that the PG-13 rating was the only decision that made sense in the entire production.",
-  "Howard the Duck": "Cost $37 million in 1986 — one of the most expensive films ever made at the time. George Lucas executive produced it. He rarely mentions it.",
-  "Ballistic: Ecks vs. Sever": "Has a 0% on Rotten Tomatoes. Several critics noted at the time that the film was technically competent — they said this made it worse, somehow.",
+  "The Room": "Tommy Wiseau spent $6 million of his own money. The origin of that money has never been explained — he claims it came from importing Korean leather jackets. He has never clarified what happened to the leather jackets.",
+  "The Fanatic": "Directed by Fred Durst of Limp Bizkit. John Travolta plays a man who stalks a celebrity. The film earned $3,153 across 52 theaters in its opening weekend. That is not a typo.",
+  "Troll 2": "Has no trolls. Only goblins. Filmed in Morgan, Utah with a cast of non-actors. The director didn't speak English and communicated through an interpreter. The child star later made a documentary about its cult revival.",
+  "Dragonball Evolution": "Akira Toriyama was so disturbed by this that it motivated him to return to Dragon Ball and create Dragon Ball Super. The film accidentally saved the franchise. The screenwriter later issued a public apology.",
+  "Battlefield Earth": "John Travolta spent a decade getting this made. It is filmed entirely in Dutch angles. Every single shot. The cinematographer has said he regrets every frame.",
+  "Dungeons & Dragons": "Jeremy Irons read the script, decided it was beneath him, and went absolutely feral anyway. Every actor gave a performance in a completely different genre, as if they'd each read a different script. A direct-to-DVD sequel was made without him and considered better.",
+  "The Wicker Man": "Nicolas Cage's most iconic scenes — bees, punching a woman in a bear suit — were largely improvised. He asked to do the bee scene. He also asked to wear the bear suit. The studio let him do both.",
+  "Mortal Kombat: Annihilation": "Shot in under 100 days. Most of the returning cast refused to come back, so their characters were killed off in the first five minutes. This is how the franchise handled recasting.",
+  "Cats": "Universal sent a patch to correct unfinished visual effects in digital rental versions after theatrical prints shipped incomplete. The 'butthole cut' — anatomically correct cats — remains unconfirmed but not officially denied.",
+  "Catwoman": "Halle Berry accepted her Razzie Award in person, holding her Oscar in the same hand. She called the film 'god-awful.' Her speech is considered the most gracious Razzie acceptance in the award's history.",
+  "Daredevil": "Ben Affleck has said he took this role to afford a house. He later took the Batman role specifically to have a version of himself that wasn't defined by Daredevil. He met Jennifer Garner on set.",
+  "Elektra": "Jennifer Garner committed to this sequel before the Daredevil reviews were in. She and Affleck married during production. The film killed Marvel's deal with Fox for several years.",
+  "Glitter": "Released September 21, 2001 — ten days after September 11. The studio released it anyway. No one came. Mariah Carey had a public breakdown and checked into a hospital. She has since described the film as a 'sad movie' about a dark period.",
+  "From Justin to Kelly": "Kelly Clarkson won American Idol in September 2002. By June 2003 she was starring in a movie she had contractually agreed to before anyone knew she'd win. She has never discussed it beyond saying she didn't enjoy it.",
+  "Showgirls": "Paul Verhoeven and Elizabeth Berkley both believed they were making a serious film about the exploitation of women. The NC-17 rating was a bold artistic statement. It won seven Razzies and became a cult classic that relaunched Berkley's public profile.",
+  "Barb Wire": "Pamela Anderson plays a character explicitly compared to Humphrey Bogart's Rick Blaine from Casablanca. This comparison is in the screenplay. The film is an unlicensed Casablanca adaptation set in a dystopia. No one has explained why.",
+  "Jack and Jill": "Won a record 10 Razzie Awards in one night — every category, including Adam Sandler winning both Worst Actor and Worst Actress for the same film. The record stands.",
+  "Freddy Got Fingered": "Tom Green wrote, directed, starred, and composed the soundtrack. Drew Barrymore supported his vision. They divorced shortly after filming. The film won five Razzies including Worst Picture.",
+  "The Master of Disguise": "Dana Carvey's own production company financed this. He has publicly said he wishes he could unmake it. The turtle club scene exists without explanation.",
+  "The Cat in the Hat": "Mike Myers' performance was so unsettling that Dr. Seuss's widow permanently banned live-action adaptations of her husband's work. The Grinch remake had to be animated. Myers has appeared in six films since.",
+  "Kazaam": "Shaquille O'Neal plays a genie who raps. He was also playing in the NBA Finals that same year. His production company developed the concept. At the time he was arguably the most famous athlete in the world.",
+  "Chairman of the Board": "Carrot Top plays an inventor who inherits a company from a man he met on a beach. Cost $10 million. Made $279,000 in theaters. Carrot Top became a successful Las Vegas performer and never discusses this film.",
+  "Movie 43": "Each director personally begged their famous friends to appear. The result proves that friendship has limits and that no one read the full script before agreeing.",
+  "The Emoji Movie": "Sony greenlit this instead of Spider-Man: Into the Spider-Verse, which they were simultaneously delaying. Both films came out within a year of each other. Only one won an Oscar.",
+  "Theodore Rex": "Whoopi Goldberg tried to exit and was sued. She lost. The buddy-cop movie with a talking T-Rex cost $35 million and made $657,000 — one of the worst box office return rates in film history.",
+  "Howard the Duck": "Cost $37 million in 1986 — one of the most expensive films ever made at that point. George Lucas executive produced it. The film implies Howard and a human woman are romantically compatible. Lucas has not elaborated.",
+  "Gigli": "The tabloid coverage of Affleck and Lopez was so overwhelming the film had no chance of a fair review. Critics noted this and then reviewed it anyway. It is genuinely very bad independent of the coverage.",
+  "Swept Away": "Directed by Guy Ritchie. Starred his wife Madonna. Critics observed that casting your spouse as a character who falls in love with you might compromise objectivity. They divorced six years later.",
+  "Super Mario Bros.": "Bob Hoskins called it the worst thing he ever made and spent the rest of his career carefully vetting scripts. Dennis Hopper described his experience as 'confusing.' John Leguizamo broke his wrist on set and filmed through it.",
+  "Congo": "Based on a Michael Crichton novel. Features a gorilla named Amy who communicates via a glove that translates her signs into speech, voiced by Tim Curry. The gorilla suit cost approximately $1 million. Curry is in the film for about twelve minutes.",
+  "Batman & Robin": "Joel Schumacher apologized publicly and repeatedly. He said the studio demanded toy-friendly content. The Batsuit nipples were his decision. He apologized for that separately.",
+  "Silent Night, Deadly Night Part 2": "Roughly half the runtime is flashback footage from the first film. The 'Garbage Day!' scene has more YouTube views than the film had viewers in its entire theatrical run.",
 };
 
 const MOVIES = [
-  // 🎮 Region 1: Video Game Adaptation Crimes
-  { seed:1,  name:"Mortal Kombat: Annihilation", year:1997, cat:"VG", imdb:"https://www.imdb.com/title/tt0119013/" },
-  { seed:2,  name:"Super Mario Bros.",            year:1993, cat:"VG", imdb:"https://www.imdb.com/title/tt0108255/" },
-  { seed:3,  name:"Dragonball Evolution",          year:2009, cat:"VG", imdb:"https://www.imdb.com/title/tt1098016/" },
-  { seed:4,  name:"Street Fighter",               year:1994, cat:"VG", imdb:"https://www.imdb.com/title/tt0111301/" },
-  { seed:5,  name:"Doom",                         year:2005, cat:"VG", imdb:"https://www.imdb.com/title/tt0419706/" },
-  { seed:6,  name:"Assassin's Creed",             year:2016, cat:"VG", imdb:"https://www.imdb.com/title/tt2094766/" },
-  { seed:7,  name:"Hitman",                       year:2007, cat:"VG", imdb:"https://www.imdb.com/title/tt0465602/" },
-  { seed:8,  name:"Alone in the Dark",            year:2005, cat:"VG", imdb:"https://www.imdb.com/title/tt0369226/" },
-  // 💸 Region 2: Big Budget, Big Collapse
-  { seed:9,  name:"Battlefield Earth",            year:2000, cat:"BB", imdb:"https://www.imdb.com/title/tt0185183/" },
-  { seed:10, name:"Cats",                         year:2019, cat:"BB", imdb:"https://www.imdb.com/title/tt5697572/" },
-  { seed:11, name:"Movie 43",                     year:2013, cat:"BB", imdb:"https://www.imdb.com/title/tt1333125/" },
-  { seed:12, name:"The Last Airbender",           year:2010, cat:"BB", imdb:"https://www.imdb.com/title/tt0938283/" },
-  { seed:13, name:"Fantastic Four",               year:2015, cat:"BB", imdb:"https://www.imdb.com/title/tt1502712/" },
-  { seed:14, name:"Jupiter Ascending",            year:2015, cat:"BB", imdb:"https://www.imdb.com/title/tt1617661/" },
-  { seed:15, name:"After Earth",                  year:2013, cat:"BB", imdb:"https://www.imdb.com/title/tt1815862/" },
-  { seed:16, name:"The Emoji Movie",              year:2017, cat:"BB", imdb:"https://www.imdb.com/title/tt4877122/" },
-  // 🧨 Region 3: Ego Projects & Hubris
-  { seed:17, name:"The Room",                     year:2003, cat:"EG", imdb:"https://www.imdb.com/title/tt0368226/" },
-  { seed:18, name:"Gigli",                        year:2003, cat:"EG", imdb:"https://www.imdb.com/title/tt0299930/" },
-  { seed:19, name:"The Love Guru",                year:2008, cat:"EG", imdb:"https://www.imdb.com/title/tt1046206/" },
-  { seed:20, name:"Jack and Jill",                year:2011, cat:"EG", imdb:"https://www.imdb.com/title/tt1611224/" },
-  { seed:21, name:"Superbabies: Baby Geniuses 2", year:2004, cat:"EG", imdb:"https://www.imdb.com/title/tt0384504/" },
-  { seed:22, name:"The Master of Disguise",       year:2002, cat:"EG", imdb:"https://www.imdb.com/title/tt0295462/" },
-  { seed:23, name:"Holmes & Watson",              year:2018, cat:"EG", imdb:"https://www.imdb.com/title/tt1255919/" },
-  { seed:24, name:"Cool Cat Saves the Kids",      year:2015, cat:"EG", imdb:"https://www.imdb.com/title/tt3120958/" },
-  // 👻 Region 4: Deep-Cut Chaos
-  { seed:25, name:"Troll 2",                             year:1990, cat:"DC", imdb:"https://www.imdb.com/title/tt0100516/" },
-  { seed:26, name:"Silent Night, Deadly Night Part 2",   year:1987, cat:"DC", imdb:"https://www.imdb.com/title/tt0092067/" },
-  { seed:27, name:"Birdemic: Shock and Terror",          year:2010, cat:"DC", imdb:"https://www.imdb.com/title/tt1316037/" },
-  { seed:28, name:"Manos: The Hands of Fate",            year:1966, cat:"DC", imdb:"https://www.imdb.com/title/tt0057507/" },
-  { seed:29, name:"The Wicker Man",                      year:2006, cat:"DC", imdb:"https://www.imdb.com/title/tt0449006/" },
-  { seed:30, name:"The Bye Bye Man",                     year:2017, cat:"DC", imdb:"https://www.imdb.com/title/tt3882082/" },
-  { seed:31, name:"Howard the Duck",                     year:1986, cat:"DC", imdb:"https://www.imdb.com/title/tt0091225/" },
-  { seed:32, name:"Ballistic: Ecks vs. Sever",           year:2002, cat:"DC", imdb:"https://www.imdb.com/title/tt0247986/" },
+  // 💀 Quadrant 1: Passionate Disasters
+  { seed:1,  name:"The Room",                          year:2003, cat:"PD", imdb:"https://www.imdb.com/title/tt0368226/" },
+  { seed:2,  name:"The Fanatic",                       year:2019, cat:"PD", imdb:"https://www.imdb.com/title/tt8045160/" },
+  { seed:3,  name:"Troll 2",                           year:1990, cat:"PD", imdb:"https://www.imdb.com/title/tt0100516/" },
+  { seed:4,  name:"Dragonball Evolution",              year:2009, cat:"PD", imdb:"https://www.imdb.com/title/tt1098016/" },
+  { seed:5,  name:"Battlefield Earth",                 year:2000, cat:"PD", imdb:"https://www.imdb.com/title/tt0185183/" },
+  { seed:6,  name:"Dungeons & Dragons",                year:2000, cat:"PD", imdb:"https://www.imdb.com/title/tt0190374/" },
+  { seed:7,  name:"The Wicker Man",                    year:2006, cat:"PD", imdb:"https://www.imdb.com/title/tt0449006/" },
+  { seed:8,  name:"Mortal Kombat: Annihilation",       year:1997, cat:"PD", imdb:"https://www.imdb.com/title/tt0119013/" },
+  // 🗑️ Quadrant 2: Celebrity Shame
+  { seed:9,  name:"Cats",                              year:2019, cat:"CS", imdb:"https://www.imdb.com/title/tt5697572/" },
+  { seed:10, name:"Catwoman",                          year:2004, cat:"CS", imdb:"https://www.imdb.com/title/tt0327554/" },
+  { seed:11, name:"Daredevil",                         year:2003, cat:"CS", imdb:"https://www.imdb.com/title/tt0287978/" },
+  { seed:12, name:"Elektra",                           year:2005, cat:"CS", imdb:"https://www.imdb.com/title/tt0357277/" },
+  { seed:13, name:"Glitter",                           year:2001, cat:"CS", imdb:"https://www.imdb.com/title/tt0248978/" },
+  { seed:14, name:"From Justin to Kelly",              year:2003, cat:"CS", imdb:"https://www.imdb.com/title/tt0349903/" },
+  { seed:15, name:"Showgirls",                         year:1995, cat:"CS", imdb:"https://www.imdb.com/title/tt0114436/" },
+  { seed:16, name:"Barb Wire",                         year:1996, cat:"CS", imdb:"https://www.imdb.com/title/tt0115685/" },
+  // 🎬 Quadrant 3: Comedy Graveyard
+  { seed:17, name:"Jack and Jill",                     year:2011, cat:"CG", imdb:"https://www.imdb.com/title/tt1611224/" },
+  { seed:18, name:"Freddy Got Fingered",               year:2001, cat:"CG", imdb:"https://www.imdb.com/title/tt0240515/" },
+  { seed:19, name:"The Master of Disguise",            year:2002, cat:"CG", imdb:"https://www.imdb.com/title/tt0295462/" },
+  { seed:20, name:"The Cat in the Hat",                year:2003, cat:"CG", imdb:"https://www.imdb.com/title/tt0285296/" },
+  { seed:21, name:"Kazaam",                            year:1996, cat:"CG", imdb:"https://www.imdb.com/title/tt0116905/" },
+  { seed:22, name:"Chairman of the Board",             year:1998, cat:"CG", imdb:"https://www.imdb.com/title/tt0120502/" },
+  { seed:23, name:"Movie 43",                          year:2013, cat:"CG", imdb:"https://www.imdb.com/title/tt1333125/" },
+  { seed:24, name:"The Emoji Movie",                   year:2017, cat:"CG", imdb:"https://www.imdb.com/title/tt4877122/" },
+  // 🔥 Quadrant 4: How Did This Get Made
+  { seed:25, name:"Theodore Rex",                      year:1995, cat:"HM", imdb:"https://www.imdb.com/title/tt0114681/" },
+  { seed:26, name:"Howard the Duck",                   year:1986, cat:"HM", imdb:"https://www.imdb.com/title/tt0091225/" },
+  { seed:27, name:"Gigli",                             year:2003, cat:"HM", imdb:"https://www.imdb.com/title/tt0299930/" },
+  { seed:28, name:"Swept Away",                        year:2002, cat:"HM", imdb:"https://www.imdb.com/title/tt0312380/" },
+  { seed:29, name:"Super Mario Bros.",                 year:1993, cat:"HM", imdb:"https://www.imdb.com/title/tt0108255/" },
+  { seed:30, name:"Congo",                             year:1995, cat:"HM", imdb:"https://www.imdb.com/title/tt0112715/" },
+  { seed:31, name:"Batman & Robin",                    year:1997, cat:"HM", imdb:"https://www.imdb.com/title/tt0118688/" },
+  { seed:32, name:"Silent Night, Deadly Night Part 2", year:1987, cat:"HM", imdb:"https://www.imdb.com/title/tt0092067/" },
 ];
 
-// R32 matchups (indices into MOVIES):
-// Region 1 VG: (1)Annihilation vs (8)Alone, (2)Mario vs (7)Hitman, (3)Dragonball vs (6)Assassin, (4)StreetFighter vs (5)Doom
-// Region 2 BB: (1)Battlefield vs (8)Emoji, (2)Cats vs (7)AfterEarth, (3)Movie43 vs (6)Jupiter, (4)Airbender vs (5)F4
-// Region 3 EG: (1)Room vs (8)CoolCat, (2)Gigli vs (7)Holmes, (3)LoveGuru vs (6)Master, (4)JackJill vs (5)Superbabies
-// Region 4 DC: (1)Troll2 vs (8)Ballistic, (2)SilentNight vs (7)Howard, (3)Birdemic vs (6)ByeBye, (4)Manos vs (5)Wicker
+// R32 matchups (indices into MOVIES) — as seeded by the quadrant theme:
+// Q1 PD: Room vs Fanatic, Troll2 vs Dragonball, Battlefield vs D&D, WickerMan vs MK:A
+// Q2 CS: Cats vs Catwoman, Daredevil vs Elektra, Glitter vs FromJustinToKelly, Showgirls vs BarbWire
+// Q3 CG: JackAndJill vs FreddyGotFingered, MasterOfDisguise vs CatInTheHat, Kazaam vs Chairman, Movie43 vs EmojiMovie
+// Q4 HM: TheodoreRex vs Howard, Gigli vs SweptAway, SuperMario vs Congo, Batman&Robin vs SilentNight2
 const R1 = [
-  [0,7],[1,6],[2,5],[3,4],
-  [8,15],[9,14],[10,13],[11,12],
-  [16,23],[17,22],[18,21],[19,20],
-  [24,31],[25,30],[26,29],[27,28],
+  [0,1],[2,3],[4,5],[6,7],
+  [8,9],[10,11],[12,13],[14,15],
+  [16,17],[18,19],[20,21],[22,23],
+  [24,25],[26,27],[28,29],[30,31],
 ];
 
 const RND = ["Round of 32", "Round of 16", "Elite 8", "Final Four", "Championship"];
@@ -372,7 +372,7 @@ export default function App() {
 
         {/* Header */}
         <div style={{ textAlign:"center", marginBottom:mob?20:28 }}>
-          <div style={{ fontSize:mob?10:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#4a3a2a", marginBottom:mob?4:6 }}>32 Films · 4 Regions · Pure System Failure</div>
+          <div style={{ fontSize:mob?10:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#4a3a2a", marginBottom:mob?4:6 }}>32 Films · 4 Quadrants · Pure System Failure</div>
           <h1 style={{ fontSize:"clamp(28px,7vw,62px)", fontWeight:400, margin:"0 0 4px", fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", background:"linear-gradient(135deg,#c83020 0%,#a02818 45%,#b07818 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>Worst Movie Tournament</h1>
           <div style={{ fontSize:mob?12:13, color:"#4a3a2a", letterSpacing:.3 }}>Pick the worst. Crown the champion of failure.</div>
         </div>
@@ -569,7 +569,7 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob }) {
           {/* Top row: region badge + year + notes dot */}
           <div style={{ display:"flex", alignItems:"center", gap:6 }}>
             <span style={{ padding:"1px 7px", borderRadius:20, background:BADGE_CLR[m.cat].bg, color:BADGE_CLR[m.cat].tx, fontSize:9, fontWeight:700, letterSpacing:.4 }}>
-              {REG_EMOJI[Math.floor((m.seed - 1) / 8)]} {["VG Crimes","Big Budget","Ego Trip","Deep-Cut"][Math.floor((m.seed - 1) / 8)]}
+              {REG_EMOJI[Math.floor((m.seed - 1) / 8)]} {["Passionate","Celeb Shame","Comedy RIP","How Did This"][Math.floor((m.seed - 1) / 8)]}
             </span>
             <span style={{ fontSize:10, color:"#2a1e14" }}>{m.year}</span>
             {note && !showCardNotes && <span style={{ width:5, height:5, borderRadius:"50%", background:c.ac, flexShrink:0, marginLeft:2 }} />}
@@ -835,7 +835,7 @@ function FullBracket({ rds, cr, cm, mob, upsets }) {
         <h3 style={{ fontSize:mob?16:16, fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", color:"#c8a0a0", margin:0 }}>Full Bracket</h3>
         {upsets?.length > 0 && <span style={{ fontSize:mob?11:10, color:"#a07818", opacity:.8, letterSpacing:1 }}>⚡ {upsets.length} upset{upsets.length!==1?"s":""}</span>}
       </div>
-      <div style={{ fontSize:mob?13:12, color:"#3a2a1a", marginBottom:mob?16:20 }}>32 movies · 4 regions · 5 rounds to crown the worst</div>
+      <div style={{ fontSize:mob?13:12, color:"#3a2a1a", marginBottom:mob?16:20 }}>32 movies · 4 quadrants · 5 rounds to crown the worst</div>
 
       {REG.map((regName, regIdx) => {
         // 4 matches per region in R32, starting at regIdx*4
