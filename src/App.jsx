@@ -372,16 +372,16 @@ export default function App() {
 
         {/* Header */}
         <div style={{ textAlign:"center", marginBottom:mob?20:28 }}>
-          <div style={{ fontSize:mob?10:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#4a3a2a", marginBottom:mob?4:6 }}>32 Films · 4 Quadrants · Pure System Failure</div>
+          <div style={{ fontSize:mob?10:11, letterSpacing:mob?4:6, textTransform:"uppercase", color:"#6a5a48", marginBottom:mob?4:6 }}>32 Films · 4 Quadrants · Pure System Failure</div>
           <h1 style={{ fontSize:"clamp(28px,7vw,62px)", fontWeight:400, margin:"0 0 4px", fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", background:"linear-gradient(135deg,#c83020 0%,#a02818 45%,#b07818 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>Worst Movie Tournament</h1>
-          <div style={{ fontSize:mob?12:13, color:"#4a3a2a", letterSpacing:.3 }}>Pick the worst. Crown the champion of failure.</div>
+          <div style={{ fontSize:mob?12:13, color:"#6a5a48", letterSpacing:.3 }}>Pick the worst. Crown the champion of failure.</div>
         </div>
 
         {/* Progress bar */}
         <div style={{ background:"rgba(255,255,255,.04)", borderRadius:20, height:mob?6:5, marginBottom:mob?6:6, overflow:"hidden" }}>
           <div style={{ height:"100%", width:`${prog}%`, background:"linear-gradient(90deg,#c03020,#8a5820,#a07818)", borderRadius:20, transition:"width .5s" }} />
         </div>
-        <div style={{ display:"flex", justifyContent:"space-between", fontSize:mob?12:11, color:"#4a3a2a", marginBottom:mob?10:14 }}>
+        <div style={{ display:"flex", justifyContent:"space-between", fontSize:mob?12:11, color:"#7a6a58", marginBottom:mob?10:14 }}>
           <span>{hi.length}/{TOTAL_PICKS} decided</span>
           <span>{rl}{rn ? ` · ${rn}` : ""}</span>
         </div>
@@ -390,14 +390,14 @@ export default function App() {
         <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center", gap:8, marginBottom:mob?8:10, fontSize:mob?12:11, flexWrap:"wrap" }}>
           {sbUser ? (
             <>
-              <span style={{ color:"#4a3a2a" }}>
+              <span style={{ color:"#7a6a58" }}>
                 {syncStatus==="syncing"?"⏳ Syncing...":syncStatus==="synced"?"✓ Synced":syncStatus==="error"?"⚠ Sync error":"☁ Synced"}
                 {" "}{sbUser.email}
               </span>
-              <button onClick={() => supabase.auth.signOut()} style={{ background:"none", border:"none", color:"#3a2a1a", fontSize:mob?12:11, cursor:"pointer" }}>Sign out</button>
+              <button onClick={() => supabase.auth.signOut()} style={{ background:"none", border:"none", color:"#6a5a48", fontSize:mob?12:11, cursor:"pointer" }}>Sign out</button>
             </>
           ) : (
-            <button onClick={() => setShowAuthModal(true)} style={{ background:"none", border:"none", color:"#4a3a2a", fontSize:mob?12:11, cursor:"pointer", letterSpacing:.5 }}>☁ Sync across devices</button>
+            <button onClick={() => setShowAuthModal(true)} style={{ background:"none", border:"none", color:"#7a6a58", fontSize:mob?12:11, cursor:"pointer", letterSpacing:.5 }}>☁ Sync across devices</button>
           )}
         </div>
 
@@ -432,11 +432,11 @@ export default function App() {
               {REG_EMOJI[Math.floor((ch.seed - 1) / 8)]} {REG[Math.floor((ch.seed - 1) / 8)]} · {ch.year} · seed #{ch.seed}
             </div>
             {upsets.length > 0 && (
-              <div style={{ marginTop:16, fontSize:mob?13:13, color:"#4a3a2a" }}>
+              <div style={{ marginTop:16, fontSize:mob?13:13, color:"#7a6a58" }}>
                 <div>{upsets.length} upset{upsets.length !== 1 ? "s" : ""} (underseeded awfulness)</div>
                 {(() => {
                   const big = upsets.reduce((a, b) => b.seedDiff > a.seedDiff ? b : a);
-                  return <div style={{ fontSize:mob?11:11, color:"#2a1e14", marginTop:4 }}>Biggest: #{big.winner.seed} {big.winner.name} over #{big.loser.seed} {big.loser.name}</div>;
+                  return <div style={{ fontSize:mob?11:11, color:"#6a5a48", marginTop:4 }}>Biggest: #{big.winner.seed} {big.winner.name} over #{big.loser.seed} {big.loser.name}</div>;
                 })()}
               </div>
             )}
@@ -456,7 +456,7 @@ export default function App() {
                 <Card mob m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} />
                 <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:12, padding:"10px 0", width:"100%" }}>
                   <div style={{ flex:1, height:1, background:"linear-gradient(90deg,transparent,rgba(192,48,32,.15))" }} />
-                  <span style={{ fontSize:14, fontWeight:800, color:"#2a1e14", letterSpacing:3 }}>VS</span>
+                  <span style={{ fontSize:14, fontWeight:800, color:"#6a5a48", letterSpacing:3 }}>VS</span>
                   <div style={{ flex:1, height:1, background:"linear-gradient(90deg,rgba(192,48,32,.15),transparent)" }} />
                 </div>
                 <Card mob m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} />
@@ -466,7 +466,7 @@ export default function App() {
                 <Card key={mu[0].seed} m={mu[0]} h={hv===mu[0].seed} a={an===mu[0].seed} d={!!an} onH={setHv} onC={() => pick(mu[0])} notes={notes} updateNote={updateNote} />
                 <div style={{ padding:"0 22px", flexShrink:0, display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
                   <div style={{ width:1, height:32, background:"linear-gradient(180deg,transparent,rgba(192,48,32,.12))" }} />
-                  <span style={{ fontSize:13, fontWeight:800, color:"#1e1510", letterSpacing:4 }}>VS</span>
+                  <span style={{ fontSize:13, fontWeight:800, color:"#6a5a48", letterSpacing:4 }}>VS</span>
                   <div style={{ width:1, height:32, background:"linear-gradient(180deg,rgba(192,48,32,.12),transparent)" }} />
                 </div>
                 <Card key={mu[1].seed} m={mu[1]} h={hv===mu[1].seed} a={an===mu[1].seed} d={!!an} onH={setHv} onC={() => pick(mu[1])} notes={notes} updateNote={updateNote} />
@@ -496,11 +496,11 @@ export default function App() {
             {/* Up Next */}
             {!bk && rds[cr] && cm + 1 < rds[cr].length && (
               <div style={{ marginTop:mob?24:30 }}>
-                <div style={{ fontSize:mob?11:10, color:"#2a1e14", marginBottom:mob?8:8, letterSpacing:2.5, textTransform:"uppercase", fontWeight:700 }}>Up Next</div>
+                <div style={{ fontSize:mob?11:10, color:"#7a6a58", marginBottom:mob?8:8, letterSpacing:2.5, textTransform:"uppercase", fontWeight:700 }}>Up Next</div>
                 {rds[cr].slice(cm + 1, cm + (mob ? 3 : 5)).map((m, i) => (
                   <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:mob?"8px 12px":"6px 12px", background:"rgba(255,255,255,.02)", borderRadius:8, fontSize:mob?13:12, marginBottom:mob?4:4 }}>
                     <span style={{ fontWeight:600, color:"#5a4838", flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{m[0].name}</span>
-                    <span style={{ fontSize:mob?10:9, color:"#1e1510", letterSpacing:2, margin:"0 8px", flexShrink:0 }}>VS</span>
+                    <span style={{ fontSize:mob?10:9, color:"#6a5a48", letterSpacing:2, margin:"0 8px", flexShrink:0 }}>VS</span>
                     <span style={{ fontWeight:600, color:"#5a4838", flex:1, textAlign:"right", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{m[1].name}</span>
                   </div>
                 ))}
@@ -571,7 +571,7 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob }) {
             <span style={{ padding:"1px 7px", borderRadius:20, background:BADGE_CLR[m.cat].bg, color:BADGE_CLR[m.cat].tx, fontSize:9, fontWeight:700, letterSpacing:.4 }}>
               {REG_EMOJI[Math.floor((m.seed - 1) / 8)]} {["Passionate","Celeb Shame","Comedy RIP","How Did This"][Math.floor((m.seed - 1) / 8)]}
             </span>
-            <span style={{ fontSize:10, color:"#2a1e14" }}>{m.year}</span>
+            <span style={{ fontSize:10, color:"#6a5a48" }}>{m.year}</span>
             {note && !showCardNotes && <span style={{ width:5, height:5, borderRadius:"50%", background:c.ac, flexShrink:0, marginLeft:2 }} />}
           </div>
 
@@ -603,7 +603,7 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob }) {
 
       <div style={{ textAlign:"center", marginTop:showCardNotes?0:(mob?3:3) }}>
         <button onClick={e => { e.stopPropagation(); setShowCardNotes(!showCardNotes); }} style={{
-          background:"transparent", border:"none", color:"#4a3a2a", fontSize:mob?11:10, cursor:"pointer",
+          background:"transparent", border:"none", color:"#7a6a58", fontSize:mob?11:10, cursor:"pointer",
           padding:mob?"5px 14px":"2px 8px", letterSpacing:.5, minHeight:mob?32:undefined,
         }}>{showCardNotes ? "hide notes ▲" : "notes ▼"}</button>
       </div>
@@ -723,7 +723,7 @@ function NoteRow({ m, note, c, updateNote, mob }) {
         <span style={{ fontSize:mob?14:12, fontWeight:600, color:"#b0a898", flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{m.name}</span>
         {!mob && <span style={{ fontSize:9, color:c.tx, opacity:.4 }}>{m.year}</span>}
         {note && <span style={{ width:6, height:6, borderRadius:"50%", background:c.ac, flexShrink:0 }} />}
-        <span style={{ fontSize:mob?11:9, color:"#3a2a1a", flexShrink:0 }}>{open?"▲":"▼"}</span>
+        <span style={{ fontSize:mob?11:9, color:"#6a5a48", flexShrink:0 }}>{open?"▲":"▼"}</span>
       </button>
       {open && (
         <div style={{ padding:mob?"0 12px 12px":"0 12px 10px" }}>
@@ -767,7 +767,7 @@ function Btn({ children, onClick, p, s, mu, mob }) {
     <button className={mob?"mob-btn":""} onClick={onClick} style={{
       background: p?"linear-gradient(135deg,#c03020,#901a10)":mu?"rgba(255,255,255,.02)":"rgba(255,255,255,.05)",
       border: p?"none":`1px solid rgba(255,255,255,${mu?.05:.08})`,
-      color: p?"#e8e0d0":mu?"#4a3a2a":"#8a7868",
+      color: p?"#e8e0d0":mu?"#6a5a48":"#8a7868",
       padding: s?(mob?"10px 18px":"6px 16px"):(mob?"14px 26px":"10px 24px"), borderRadius:10,
       fontSize: s?(mob?13:12):(mob?15:14), fontWeight:p?700:600, cursor:"pointer",
       minHeight:mob?48:undefined, transition:"all .15s", WebkitTapHighlightColor:"transparent",
@@ -787,13 +787,13 @@ function BV({ rds, cr, cm, mob }) {
 function RB({ t, ms, cr, cm, ri, mob }) {
   return (
     <div style={{ marginBottom:mob?14:16 }}>
-      <div style={{ fontSize:mob?11:10, letterSpacing:mob?2:2.5, textTransform:"uppercase", color:"#4a3a2a", marginBottom:mob?6:6, fontWeight:700 }}>{t}</div>
+      <div style={{ fontSize:mob?11:10, letterSpacing:mob?2:2.5, textTransform:"uppercase", color:"#7a6a58", marginBottom:mob?6:6, fontWeight:700 }}>{t}</div>
       {ms.map((m, mi) => {
         const w = m.winner, cur = ri===cr&&mi===cm;
         return (
           <div key={mi} style={{ display:"flex", alignItems:"center", gap:mob?6:6, fontSize:mob?13:12, padding:mob?"5px 8px":"3px 8px", borderRadius:6, background:cur?"rgba(192,48,32,.06)":"transparent" }}>
             <MN m={m[0]} w={w} r mob={mob} />
-            <span style={{ color:"#1e1510", fontSize:mob?10:9, letterSpacing:1, flexShrink:0 }}>vs</span>
+            <span style={{ color:"#6a5a48", fontSize:mob?10:9, letterSpacing:1, flexShrink:0 }}>vs</span>
             <MN m={m[1]} w={w} mob={mob} />
           </div>
         );
@@ -807,11 +807,11 @@ function MN({ m, w, r, mob, upset }) {
   const winColor = upset ? "#a07818" : "#c03020";
   return (
     <span style={{
-      color: won?winColor:lost?"#2a1e14":"#6a5a48",
+      color: won?winColor:lost?"#5a4a3a":"#8a7a68",
       fontWeight: won?700:400, flex:1,
       textAlign: r?"right":"left",
       textDecoration: lost?"line-through":"none",
-      opacity: lost?.4:1,
+      opacity: lost?.5:1,
       overflow: mob?"hidden":undefined,
       textOverflow: mob?"ellipsis":undefined,
       whiteSpace: mob?"nowrap":undefined,
@@ -835,7 +835,7 @@ function FullBracket({ rds, cr, cm, mob, upsets }) {
         <h3 style={{ fontSize:mob?16:16, fontWeight:400, fontFamily:"'Bebas Neue',sans-serif", letterSpacing:"0.06em", color:"#c8a0a0", margin:0 }}>Full Bracket</h3>
         {upsets?.length > 0 && <span style={{ fontSize:mob?11:10, color:"#a07818", opacity:.8, letterSpacing:1 }}>⚡ {upsets.length} upset{upsets.length!==1?"s":""}</span>}
       </div>
-      <div style={{ fontSize:mob?13:12, color:"#3a2a1a", marginBottom:mob?16:20 }}>32 movies · 4 quadrants · 5 rounds to crown the worst</div>
+      <div style={{ fontSize:mob?13:12, color:"#7a6a58", marginBottom:mob?16:20 }}>32 movies · 4 quadrants · 5 rounds to crown the worst</div>
 
       {REG.map((regName, regIdx) => {
         // 4 matches per region in R32, starting at regIdx*4
@@ -856,18 +856,18 @@ function FullBracket({ rds, cr, cm, mob, upsets }) {
                 <div key={mi} style={{ display:"flex", alignItems:"center", gap:rowGap, fontSize:rowFs, padding:rowPad, borderRadius:6, background:isCurrentMatch?"rgba(192,48,32,.06)":"transparent" }}>
                   <span style={{
                     flex:1, textAlign:"right", ...ellipsis,
-                    color: w?.seed===aSeed?winColor : w&&w.seed!==aSeed?"#2a1e14" : p?"#6a4a4a":"#4a3a2a",
+                    color: w?.seed===aSeed?winColor : w&&w.seed!==aSeed?"#5a4a3a" : p?"#8a7a6a":"#8a7a68",
                     fontWeight: w?.seed===aSeed?700:400,
                     textDecoration: w&&w.seed!==aSeed?"line-through":"none",
-                    opacity: w&&w.seed!==aSeed?.35:1,
+                    opacity: w&&w.seed!==aSeed?.5:1,
                   }}>{!mob&&aSeed?`#${aSeed} `:""}{mu2.a.name}</span>
-                  <span style={{ color:"#1e1510", fontSize:vsFs, letterSpacing:1, flexShrink:0 }}>vs</span>
+                  <span style={{ color:"#6a5a48", fontSize:vsFs, letterSpacing:1, flexShrink:0 }}>vs</span>
                   <span style={{
                     flex:1, ...ellipsis,
-                    color: w?.seed===bSeed?winColor : w&&w.seed!==bSeed?"#2a1e14" : p?"#6a4a4a":"#4a3a2a",
+                    color: w?.seed===bSeed?winColor : w&&w.seed!==bSeed?"#5a4a3a" : p?"#8a7a6a":"#8a7a68",
                     fontWeight: w?.seed===bSeed?700:400,
                     textDecoration: w&&w.seed!==bSeed?"line-through":"none",
-                    opacity: w&&w.seed!==bSeed?.35:1,
+                    opacity: w&&w.seed!==bSeed?.5:1,
                   }}>{mu2.b.name}{!mob&&bSeed?` #${bSeed}`:""}</span>
                   {w && <span style={{ fontSize:vsFs, color:isUpset?"#a07818":REG_COLOR[regIdx], opacity:.6, marginLeft:2 }}>{isUpset?"⚡":"✓"}</span>}
                 </div>
@@ -889,7 +889,7 @@ function FullBracket({ rds, cr, cm, mob, upsets }) {
               return (
                 <div key={mi} style={{ display:"flex", alignItems:"center", gap:rowGap, fontSize:rowFs, padding:rowPad, borderRadius:6, background:isCur?"rgba(192,48,32,.06)":"transparent" }}>
                   <MN m={m[0]} w={w} r mob={mob} upset={isUpset&&w?.seed===m[0].seed} />
-                  <span style={{ color:"#1e1510", fontSize:vsFs, letterSpacing:1, flexShrink:0 }}>vs</span>
+                  <span style={{ color:"#6a5a48", fontSize:vsFs, letterSpacing:1, flexShrink:0 }}>vs</span>
                   <MN m={m[1]} w={w} mob={mob} upset={isUpset&&w?.seed===m[1].seed} />
                   {w && <span style={{ fontSize:vsFs, color:isUpset?"#a07818":"#c03020", opacity:.5, marginLeft:2 }}>{isUpset?"⚡":"✓"}</span>}
                 </div>
