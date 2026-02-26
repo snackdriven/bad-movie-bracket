@@ -207,7 +207,6 @@ export default function App() {
   const [hi, setHi] = useState(() => init?.hi || []);
   const [upsets, setUpsets] = useState(() => init?.upsets ?? []);
   const [upFlash, setUpFlash] = useState(false);
-  const [fact, setFact] = useState(null);
   const [copiedBracket, setCopiedBracket] = useState(false);
 
   // Notes
@@ -252,20 +251,6 @@ export default function App() {
     return () => window.removeEventListener("keydown", h);
   }, []);
 
-  // Auth state listener — reacts to setSession() above or existing sessions
-  useEffect(() => {
-    let pulled = false;
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setSbUser(session?.user ?? null);
-      if (session?.user && !pulled && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
-        pulled = true;
-        pullFromSupabase();
-      }
-      if (event === "SIGNED_OUT") pulled = false;
-    });
-    return () => subscription.unsubscribe();
-  }, []); // intentional: runs once
-
   const pullFromSupabase = async () => {
     const { data, error } = await supabase
       .from("bad_movie_bracket").select("notes,state").maybeSingle();
@@ -281,6 +266,20 @@ export default function App() {
       } catch { /* ignore malformed */ }
     }
   };
+
+  // Auth state listener — reacts to setSession() above or existing sessions
+  useEffect(() => {
+    let pulled = false;
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setSbUser(session?.user ?? null);
+      if (session?.user && !pulled && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
+        pulled = true;
+        pullFromSupabase();
+      }
+      if (event === "SIGNED_OUT") pulled = false;
+    });
+    return () => subscription.unsubscribe();
+  }, []); // intentional: runs once
 
   // Auto-push on state change (2s debounce)
   const syncTimerRef = useRef(null);
@@ -342,7 +341,6 @@ export default function App() {
     if (!hi.length) return;
     const l = hi[hi.length - 1];
     setHi(hi.slice(0, -1));
-    setFact(null);
     if (l.wasUpset) setUpsets(u => u.slice(0, -1));
     if (ch) setCh(null);
     const nr = rds.slice(0, l.r + 1).map((rd, ri2) => rd.map((m, mi) => {
@@ -355,7 +353,7 @@ export default function App() {
   const reset = () => {
     setRds([R1.map(([a, b]) => [MOVIES[a], MOVIES[b]])]);
     setCr(0); setCm(0); setCh(null); setHi([]); setUpsets([]);
-    setUpFlash(false); setFact(null); setCopiedBracket(false);
+    setUpFlash(false); setCopiedBracket(false);
     setBk(false); setFb(false);
     saveLS("bmt-state", null);
   };
@@ -385,7 +383,17 @@ export default function App() {
     navigator.clipboard.writeText(exportBracket()).then(() => {
       setCopiedBracket(true);
       setTimeout(() => setCopiedBracket(false), 1500);
-    }).catch(() => {});
+    }).catch(() => {
+      // Clipboard unavailable (insecure context, permissions denied)
+      // Fall back to selecting text from a temporary element
+      const el = document.createElement("textarea");
+      el.value = exportBracket();
+      el.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(el);
+      el.select();
+      try { document.execCommand("copy"); setCopiedBracket(true); setTimeout(() => setCopiedBracket(false), 1500); } catch { /* give up */ }
+      document.body.removeChild(el);
+    });
   };
 
   return (
@@ -400,9 +408,7 @@ export default function App() {
         @keyframes wg{0%,100%{text-shadow:0 0 20px rgba(204,48,32,.4),0 0 40px rgba(160,120,24,.1)}50%{text-shadow:0 0 44px rgba(204,48,32,.8),0 0 80px rgba(160,120,24,.25)}}
         @keyframes ch{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(.98);opacity:.6}}
         @keyframes fi{from{opacity:0}to{opacity:1}}
-        @keyframes pp{0%,100%{border-color:rgba(204,48,32,.12)}50%{border-color:rgba(204,48,32,.38)}}
         @keyframes uf{0%{opacity:0;transform:translateY(-8px) scale(.9)}20%{opacity:1;transform:translateY(0) scale(1)}80%{opacity:1}100%{opacity:0}}
-        @keyframes flicker{0%,100%{opacity:1}92%{opacity:.94}96%{opacity:.98}}
         @media(max-width:600px){
           .mob-btn:active{opacity:.7!important;transform:scale(.97)!important}
           .mob-card:active{transform:scale(.98)!important;opacity:.9!important}
@@ -459,7 +465,7 @@ export default function App() {
           }}>{showNotes ? "Hide Notes" : "📝 Notes"}</button>
         </div>
 
-        {showNotes && <NotesPanel mob={mob} notes={notes} updateNote={updateNote} movieMeta={MOVIE_META} />}
+        {showNotes && <NotesPanel mob={mob} notes={notes} updateNote={updateNote} />}
         {fb && <FullBracket mob={mob} rds={rds} cr={cr} cm={cm} upsets={upsets} />}
 
         {/* Champion view */}
@@ -607,7 +613,7 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
           {hasPoster ? <>
             <img src={meta.poster} alt="" style={{
               width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top",
-              display:"block", opacity:a?.45:1,
+              display:"block", opacity:a ? 0.45 : 1,
               transition:"opacity .3s, transform .2s",
               transform: h&&!mob?"scale(1.05)":"scale(1)",
             }}/>
@@ -695,6 +701,11 @@ function AuthModal({ onClose }) {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState(null);
+  useEffect(() => {
+    const h = e => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [onClose]);
   const sendLink = async () => {
     setErr(null);
     const { error } = await supabase.auth.signInWithOtp({
