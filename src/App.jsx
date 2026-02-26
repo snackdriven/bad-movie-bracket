@@ -539,7 +539,7 @@ export default function App() {
             {!bk && rds[cr] && cm + 1 < rds[cr].length && (
               <div style={{ marginTop:mob?24:30 }}>
                 <div style={{ fontSize:mob?11:10, color:"#7a6a58", marginBottom:mob?8:8, letterSpacing:2.5, textTransform:"uppercase", fontWeight:700 }}>Up Next</div>
-                {rds[cr].slice(cm + 1, cm + (mob ? 3 : 5)).map((m, i) => (
+                {rds[cr].slice(cm + 1, cm + 2).map((m, i) => (
                   <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:mob?"8px 12px":"6px 12px", background:"rgba(255,255,255,.02)", borderRadius:8, fontSize:mob?13:12, marginBottom:mob?4:4 }}>
                     <span style={{ fontWeight:600, color:"#5a4838", flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{m[0].name}</span>
                     <span style={{ fontSize:mob?10:9, color:"#6a5a48", letterSpacing:2, margin:"0 8px", flexShrink:0 }}>VS</span>
