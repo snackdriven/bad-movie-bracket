@@ -393,7 +393,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight:"100vh", background:"linear-gradient(155deg,#0d0b09,#120e0a 35%,#0f0c09 65%,#0d0b09)", fontFamily:"'Barlow','Helvetica Neue',sans-serif", color:"#d4ccba" }}>
+    <div style={{ minHeight:"100vh", position:"relative", zIndex:9999, fontFamily:"'Barlow','Helvetica Neue',sans-serif", color:"#d4ccba" }}>
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
       <Dots mob={mob} />
       <style>{`

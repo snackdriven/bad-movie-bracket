@@ -1,8 +1,13 @@
 /* App-level styles — most styling is inline in App.jsx */
 
+body {
+  background: linear-gradient(155deg, #0d0b09, #120e0a 35%, #0f0c09 65%, #0d0b09);
+  min-height: 100vh;
+}
+
 /* CRT: Scanlines */
 @keyframes crt-scanlines-flicker {
-  0%   { opacity: 0.85; }
+  0%   { opacity: 0.6; }
   50%  { opacity: 1; }
 }
 
@@ -30,4 +35,3 @@ body::before {
   pointer-events: none;
   background: radial-gradient(ellipse at 50% 50%, transparent 65%, rgba(0, 0, 0, 0.35) 100%);
 }
-
