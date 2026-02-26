@@ -318,10 +318,6 @@ export default function App() {
     setHi(h => [...h, { i: cm, r: cr, wasUpset: isUpset }]);
     setTimeout(() => {
       setAn(null);
-      if (FACTS[w.name]) {
-        setFact(FACTS[w.name]);
-        setTimeout(() => setFact(null), 5500);
-      }
       const nr = rds.map((rd, ri2) => rd.map((m, mi) => {
         if (ri2 !== cr || mi !== cm) return m;
         const c = [...m]; c.winner = w; return c;
@@ -522,11 +518,6 @@ export default function App() {
               </div>
             )}
 
-            {fact && (
-              <div style={{ margin:mob?"14px 0 0":"14px auto 0", maxWidth:mob?undefined:560, padding:"12px 18px", background:"rgba(255,255,255,.03)", borderRadius:12, border:"1px solid rgba(204,48,32,.12)", fontSize:mob?13:13, color:"#8a7868", fontStyle:"italic", lineHeight:1.6, animation:"su .3s ease-out" }}>
-                🎬 {fact}
-              </div>
-            )}
 
             <div style={{ display:"flex", justifyContent:"center", gap:mob?10:10, marginTop:mob?18:22 }}>
               {hi.length > 0 && <Btn mob={mob} s onClick={undo}>← Undo</Btn>}
