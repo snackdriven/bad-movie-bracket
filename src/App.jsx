@@ -131,38 +131,38 @@ const R1 = [
 
 // Per-movie metadata: runtime, IMDb rating, hover plot blurb
 const MOVIE_META = {
-  1:  { runtime:"99 min",  rating:"3.7", plot:"A San Francisco banker's life unravels when his fiancée seduces his best friend. Wiseau wrote, directed, produced, and starred in what he insists was always a dark comedy." },
-  2:  { runtime:"88 min",  rating:"2.5", plot:"An obsessive fan stalks his favorite action star. Fred Durst of Limp Bizkit wrote and directed. John Travolta's performance exists in a category of its own." },
-  3:  { runtime:"95 min",  rating:"2.9", plot:"A family on vacation discovers the locals are goblins who want to turn them into plants. Contains no trolls. The director spoke no English during filming." },
-  4:  { runtime:"85 min",  rating:"2.7", plot:"Goku must gather the Dragon Balls before Lord Piccolo destroys the world. The adaptation so offended the creator that he returned to the franchise to correct the damage." },
-  5:  { runtime:"118 min", rating:"2.5", plot:"In 3000 AD, humanity is enslaved by alien Psychlos. Travolta's decade-long passion project — filmed entirely in Dutch angles. Every single shot." },
-  6:  { runtime:"107 min", rating:"3.7", plot:"A thief and his friends seek a magic rod to save their kingdom. Jeremy Irons read the script, decided it was beneath him, and went feral anyway." },
-  7:  { runtime:"102 min", rating:"3.7", plot:"A cop travels to a remote island to investigate a missing girl. Cage improvised the bee scene, the bear suit scene, and several other moments that have since defined a genre of meme." },
-  8:  { runtime:"95 min",  rating:"3.5", plot:"Earth's warriors fight Outworld emperor Shao Kahn. Most of the original cast refused to return, so their characters die in the opening scene." },
-  9:  { runtime:"110 min", rating:"2.7", plot:"A tribe of cats compete to ascend to the Heaviside Layer. Digital fur technology. Universal had to patch the effects after theatrical prints shipped incomplete." },
-  10: { runtime:"104 min", rating:"3.3", plot:"A shy woman reborn with cat powers fights crime. Halle Berry accepted her Razzie in person, Oscar in hand, calling it 'a piece of shit, god-awful movie.'" },
-  11: { runtime:"103 min", rating:"5.3", plot:"A blind lawyer moonlights as a masked vigilante. Affleck took the role to afford a house. He later took the Batman role specifically to replace this memory." },
-  12: { runtime:"97 min",  rating:"4.9", plot:"An assassin hired to kill a father and daughter reconsiders. Garner committed to this sequel before the Daredevil reviews were in. She married Affleck during production." },
-  13: { runtime:"104 min", rating:"2.2", plot:"A young singer rises to fame in New York. Released September 21, 2001 — ten days after the attacks. The studio released it anyway. No one came." },
-  14: { runtime:"81 min",  rating:"2.4", plot:"Two young people fall in love on spring break in Miami. Clarkson had signed the contract before anyone knew she'd win American Idol. She has never discussed it." },
-  15: { runtime:"128 min", rating:"4.4", plot:"A drifter works her way from stripper to showgirl in Las Vegas. Verhoeven and Berkley believed they were making a serious film. Seven Razzies. Later: cult classic." },
-  16: { runtime:"99 min",  rating:"4.1", plot:"A nightclub owner in a fascist future America aids the resistance. It is an unlicensed Casablanca adaptation set in a dystopia. This was intentional." },
-  17: { runtime:"91 min",  rating:"3.4", plot:"A man dreads his twin sister's Thanksgiving visit. Won all ten Razzie Awards in one night, including Sandler winning Worst Actor and Worst Actress for the same performance." },
-  18: { runtime:"87 min",  rating:"4.4", plot:"An aspiring animator moves home and creates chaos. Green wrote, directed, starred, and composed the score. He was dating Drew Barrymore. They divorced shortly after filming." },
-  19: { runtime:"80 min",  rating:"2.5", plot:"A man discovers he descends from master disguisers and must rescue his father. Dana Carvey's company financed it. He has since said he wishes he could unmake it." },
+  1:  { runtime:"99 min",  rating:"3.7", plot:"A San Francisco banker's life unravels when his fiancée seduces his best friend. Wiseau wrote, directed, produced, and starred in what he insists was always a dark comedy.", poster:"https://image.tmdb.org/t/p/w185/9QscHN4pXj6Ja1k7e1ZT4vWDGnr.jpg" },
+  2:  { runtime:"88 min",  rating:"2.5", plot:"An obsessive fan stalks his favorite action star. Fred Durst of Limp Bizkit wrote and directed. John Travolta's performance exists in a category of its own.", poster:"https://upload.wikimedia.org/wikipedia/en/4/41/The_Fanatic_-_release_poster.jpg" },
+  3:  { runtime:"95 min",  rating:"2.9", plot:"A family on vacation discovers the locals are goblins who want to turn them into plants. Contains no trolls. The director spoke no English during filming.", poster:"https://image.tmdb.org/t/p/w185/uS1rDgMojgQ8QA5tu8jUt20o1KR.jpg" },
+  4:  { runtime:"85 min",  rating:"2.7", plot:"Goku must gather the Dragon Balls before Lord Piccolo destroys the world. The adaptation so offended the creator that he returned to the franchise to correct the damage.", poster:"https://upload.wikimedia.org/wikipedia/en/b/bf/Dragonball_Evolution_%282009_film%29.jpg" },
+  5:  { runtime:"118 min", rating:"2.5", plot:"In 3000 AD, humanity is enslaved by alien Psychlos. Travolta's decade-long passion project — filmed entirely in Dutch angles. Every single shot.", poster:"https://image.tmdb.org/t/p/w185/wXCRuBHdJ5aTFQdsuGJFXNdo79T.jpg" },
+  6:  { runtime:"107 min", rating:"3.7", plot:"A thief and his friends seek a magic rod to save their kingdom. Jeremy Irons read the script, decided it was beneath him, and went feral anyway.", poster:"https://image.tmdb.org/t/p/w185/tLCsyHLHhTbzKzsL3IcBNyDKlZm.jpg" },
+  7:  { runtime:"102 min", rating:"3.7", plot:"A cop travels to a remote island to investigate a missing girl. Cage improvised the bee scene, the bear suit scene, and several other moments that have since defined a genre of meme.", poster:"https://upload.wikimedia.org/wikipedia/en/f/fa/Wicker-man-poster.jpg" },
+  8:  { runtime:"95 min",  rating:"3.5", plot:"Earth's warriors fight Outworld emperor Shao Kahn. Most of the original cast refused to return, so their characters die in the opening scene.", poster:"https://image.tmdb.org/t/p/w185/tUzF2S15iX4Hn6ikbFX1YP3SDEQ.jpg" },
+  9:  { runtime:"110 min", rating:"2.7", plot:"A tribe of cats compete to ascend to the Heaviside Layer. Digital fur technology. Universal had to patch the effects after theatrical prints shipped incomplete.", poster:"https://image.tmdb.org/t/p/w185/aCNch5FmzT2WaUcY44925owIZXY.jpg" },
+  10: { runtime:"104 min", rating:"3.3", plot:"A shy woman reborn with cat powers fights crime. Halle Berry accepted her Razzie in person, Oscar in hand, calling it 'a piece of shit, god-awful movie.'", poster:"https://image.tmdb.org/t/p/w185/pvnPgukFyEKgCzyOxyLiwyZ8T1C.jpg" },
+  11: { runtime:"103 min", rating:"5.3", plot:"A blind lawyer moonlights as a masked vigilante. Affleck took the role to afford a house. He later took the Batman role specifically to replace this memory.", poster:"https://image.tmdb.org/t/p/w185/oCDBwSkntYamuw8VJIxMRCtDBmi.jpg" },
+  12: { runtime:"97 min",  rating:"4.9", plot:"An assassin hired to kill a father and daughter reconsiders. Garner committed to this sequel before the Daredevil reviews were in. She married Affleck during production.", poster:"https://image.tmdb.org/t/p/w185/Z4dAOxjAHTUZO6DJ2WVAsxzwe3.jpg" },
+  13: { runtime:"104 min", rating:"2.2", plot:"A young singer rises to fame in New York. Released September 21, 2001 — ten days after the attacks. The studio released it anyway. No one came.", poster:"https://image.tmdb.org/t/p/w185/9VMV98Hy9YX3fKQ3LHpAgpFd8jF.jpg" },
+  14: { runtime:"81 min",  rating:"2.4", plot:"Two young people fall in love on spring break in Miami. Clarkson had signed the contract before anyone knew she'd win American Idol. She has never discussed it.", poster:"https://image.tmdb.org/t/p/w185/pE5anFf7nf6ah7V3VRezQ1KSovi.jpg" },
+  15: { runtime:"128 min", rating:"4.4", plot:"A drifter works her way from stripper to showgirl in Las Vegas. Verhoeven and Berkley believed they were making a serious film. Seven Razzies. Later: cult classic.", poster:"https://image.tmdb.org/t/p/w185/o4HT3Ap5c99W4FYpdXUtTvxGgPc.jpg" },
+  16: { runtime:"99 min",  rating:"4.1", plot:"A nightclub owner in a fascist future America aids the resistance. It is an unlicensed Casablanca adaptation set in a dystopia. This was intentional.", poster:"https://image.tmdb.org/t/p/w185/hU2XeckncHS61TWZKDtw1BrKmOO.jpg" },
+  17: { runtime:"91 min",  rating:"3.4", plot:"A man dreads his twin sister's Thanksgiving visit. Won all ten Razzie Awards in one night, including Sandler winning Worst Actor and Worst Actress for the same performance.", poster:"https://image.tmdb.org/t/p/w185/qv8deK0ZmutAuEpejruQKApIy6r.jpg" },
+  18: { runtime:"87 min",  rating:"4.4", plot:"An aspiring animator moves home and creates chaos. Green wrote, directed, starred, and composed the score. He was dating Drew Barrymore. They divorced shortly after filming.", poster:"https://image.tmdb.org/t/p/w185/gVmSZgxiT7ynyRLsEgg8Xs8ZVWX.jpg" },
+  19: { runtime:"80 min",  rating:"2.5", plot:"A man discovers he descends from master disguisers and must rescue his father. Dana Carvey's company financed it. He has since said he wishes he could unmake it.", poster:"https://upload.wikimedia.org/wikipedia/en/c/c0/Masterdisguise.jpg" },
   20: { runtime:"82 min",  rating:"3.9", plot:"A tall cat visits two bored children and unleashes chaos. Myers' performance disturbed Dr. Seuss's widow enough to permanently ban live-action adaptations of her husband's work." },
-  21: { runtime:"93 min",  rating:"3.1", plot:"A troubled kid accidentally frees a genie from a boombox. Shaquille O'Neal developed the concept. He was also in the NBA Finals that year." },
-  22: { runtime:"95 min",  rating:"3.7", plot:"A lovable inventor inherits a corporation from a man he met on a beach. Carrot Top stars. Cost $10 million, made $279,000. Carrot Top is now a successful Las Vegas performer." },
-  23: { runtime:"94 min",  rating:"4.3", plot:"Interconnected comedy shorts featuring Hollywood stars. Each director personally begged their famous friends to appear. The result proves that friendship has limits." },
-  24: { runtime:"86 min",  rating:"3.2", plot:"A multi-expressional emoji goes on a journey inside a smartphone. Sony chose this over Spider-Man: Into the Spider-Verse. The Spider-Verse won an Oscar." },
-  25: { runtime:"92 min",  rating:"3.2", plot:"A detective is reluctantly partnered with a talking T-Rex to solve murders. Whoopi Goldberg tried to quit, was sued, and lost. Cost $35M. Made $657K." },
-  26: { runtime:"110 min", rating:"4.6", plot:"A duck from outer space helps a rock band stop an alien invasion. George Lucas executive produced. The film implies Howard and a human woman are romantically compatible. Lucas has not elaborated." },
-  27: { runtime:"121 min", rating:"2.4", plot:"A mobster kidnaps a prosecutor's brother and receives an unwanted partner. The Bennifer tabloid coverage meant critics had made up their minds before seeing a single frame." },
-  28: { runtime:"89 min",  rating:"3.3", plot:"A spoiled woman and a deckhand are stranded on a deserted island. Directed by Guy Ritchie. Starred his wife, Madonna. They divorced six years later." },
-  29: { runtime:"104 min", rating:"3.9", plot:"Two plumbers travel to a parallel universe to rescue a princess from a lizard-human king. Bob Hoskins called it the worst thing he ever made." },
-  30: { runtime:"109 min", rating:"5.2", plot:"Explorers seek diamonds guarded by killer apes in the Congo. Tim Curry voices a gorilla via a glove that translates sign language. The gorilla suit cost approximately $1 million." },
-  31: { runtime:"125 min", rating:"3.8", plot:"Batman and Robin fight Mr. Freeze, Poison Ivy, and Bane. Schumacher apologized publicly and repeatedly. The Batsuit nipples were his decision. He apologized for that separately." },
-  32: { runtime:"88 min",  rating:"3.9", plot:"A killer's brother continues the Christmas rampage. Half the runtime is footage from the first film. 'Garbage Day!' has more YouTube views than the film had theatrical viewers." },
+  21: { runtime:"93 min",  rating:"3.1", plot:"A troubled kid accidentally frees a genie from a boombox. Shaquille O'Neal developed the concept. He was also in the NBA Finals that year.", poster:"https://image.tmdb.org/t/p/w185/lBxY8znsRoqa9Dy2NCe8I6GPsRm.jpg" },
+  22: { runtime:"95 min",  rating:"3.7", plot:"A lovable inventor inherits a corporation from a man he met on a beach. Carrot Top stars. Cost $10 million, made $279,000. Carrot Top is now a successful Las Vegas performer.", poster:"https://image.tmdb.org/t/p/w185/1KkhXdaDZm0pJko0g6QmRcuDZ8t.jpg" },
+  23: { runtime:"94 min",  rating:"4.3", plot:"Interconnected comedy shorts featuring Hollywood stars. Each director personally begged their famous friends to appear. The result proves that friendship has limits.", poster:"https://image.tmdb.org/t/p/w185/uYa06GxHsCsELx9vOQ11vsT0Aa6.jpg" },
+  24: { runtime:"86 min",  rating:"3.2", plot:"A multi-expressional emoji goes on a journey inside a smartphone. Sony chose this over Spider-Man: Into the Spider-Verse. The Spider-Verse won an Oscar.", poster:"https://image.tmdb.org/t/p/w185/60bTx5z9zL1AqCjZ0gmWoRMJ6Bb.jpg" },
+  25: { runtime:"92 min",  rating:"3.2", plot:"A detective is reluctantly partnered with a talking T-Rex to solve murders. Whoopi Goldberg tried to quit, was sued, and lost. Cost $35M. Made $657K.", poster:"https://image.tmdb.org/t/p/w185/whz4bwvqE1OmQHIyqHdZD8jU9CO.jpg" },
+  26: { runtime:"110 min", rating:"4.6", plot:"A duck from outer space helps a rock band stop an alien invasion. George Lucas executive produced. The film implies Howard and a human woman are romantically compatible. Lucas has not elaborated.", poster:"https://image.tmdb.org/t/p/w185/eU0dWo8PJgsSAZFbcyHiUpuLSyW.jpg" },
+  27: { runtime:"121 min", rating:"2.4", plot:"A mobster kidnaps a prosecutor's brother and receives an unwanted partner. The Bennifer tabloid coverage meant critics had made up their minds before seeing a single frame.", poster:"https://image.tmdb.org/t/p/w185/qOhAK3WDqdeVTIE59loXvEGU7Lu.jpg" },
+  28: { runtime:"89 min",  rating:"3.3", plot:"A spoiled woman and a deckhand are stranded on a deserted island. Directed by Guy Ritchie. Starred his wife, Madonna. They divorced six years later.", poster:"https://image.tmdb.org/t/p/w185/z1eAX53ur7LLZmXr0rD8qIdxYvG.jpg" },
+  29: { runtime:"104 min", rating:"3.9", plot:"Two plumbers travel to a parallel universe to rescue a princess from a lizard-human king. Bob Hoskins called it the worst thing he ever made.", poster:"https://image.tmdb.org/t/p/w185/yt5bbMfKpg1nRr4k5edxs7tPK2m.jpg" },
+  30: { runtime:"109 min", rating:"5.2", plot:"Explorers seek diamonds guarded by killer apes in the Congo. Tim Curry voices a gorilla via a glove that translates sign language. The gorilla suit cost approximately $1 million.", poster:"https://image.tmdb.org/t/p/w185/hPNSToNIIpRO6y5Rh973leqQqNr.jpg" },
+  31: { runtime:"125 min", rating:"3.8", plot:"Batman and Robin fight Mr. Freeze, Poison Ivy, and Bane. Schumacher apologized publicly and repeatedly. The Batsuit nipples were his decision. He apologized for that separately.", poster:"https://image.tmdb.org/t/p/w185/i7hEUpDuMN2LOrCEifFyGSHZQSY.jpg" },
+  32: { runtime:"88 min",  rating:"3.9", plot:"A killer's brother continues the Christmas rampage. Half the runtime is footage from the first film. 'Garbage Day!' has more YouTube views than the film had theatrical viewers.", poster:"https://image.tmdb.org/t/p/w185/41XxSsJc5OrulP0m7TrrUeO2hoz.jpg" },
 };
 
 const RND = ["Round of 32", "Round of 16", "Elite 8", "Final Four", "Championship"];
@@ -243,6 +243,13 @@ export default function App() {
     if (!access_token || !refresh_token) return;
     window.history.replaceState(null, "", window.location.pathname + window.location.search);
     supabase.auth.setSession({ access_token, refresh_token }).catch(() => {});
+  }, []);
+
+  // Easter egg: press ? to open the repo
+  useEffect(() => {
+    const h = e => { if (e.key === "?" && !e.target.closest("input,textarea")) window.open("https://github.com/snackdriven/bad-movie-bracket", "_blank"); };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
   }, []);
 
   // Auth state listener — reacts to setSession() above or existing sessions
@@ -555,6 +562,8 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
   const [showCardNotes, setShowCardNotes] = useState(false);
   const note = notes?.[m.seed] || "";
   const meta = movieMeta?.[m.seed];
+  const hasPoster = !!meta?.poster;
+  const panelW = mob ? 66 : 78;
   const rTop = showCardNotes ? (mob ? "14px 14px 0 0" : "16px 16px 0 0") : (mob ? 14 : 16);
 
   const cardBg = h
@@ -591,14 +600,24 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
           WebkitTapHighlightColor:"transparent",
         }}>
 
-        {/* Left panel: large faded seed number */}
+        {/* Left panel: full-height poster OR faded seed number */}
         <div style={{
-          width:mob?62:72, flexShrink:0, position:"relative", overflow:"hidden",
+          width:panelW, flexShrink:0, position:"relative", overflow:"hidden",
           borderRadius: showCardNotes?(mob?"14px 0 0 0":"16px 0 0 0"):(mob?"14px 0 0 14px":"16px 0 0 16px"),
-          background:`${c.ac}08`, borderRight:`1px solid ${c.ac}0c`,
-          display:"flex", alignItems:"center", justifyContent:"center",
         }}>
-          <span style={{ fontSize:mob?28:34, fontWeight:900, color:c.ac, opacity:h?.2:.08, lineHeight:1, userSelect:"none", transition:"opacity .18s", fontVariantNumeric:"tabular-nums" }}>{m.seed}</span>
+          {hasPoster ? <>
+            <img src={meta.poster} alt="" style={{
+              width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top",
+              display:"block", opacity:a?.45:1,
+              transition:"opacity .3s, transform .2s",
+              transform: h&&!mob?"scale(1.05)":"scale(1)",
+            }}/>
+            <div style={{ position:"absolute", top:0, right:0, bottom:0, width:"60%", background:`linear-gradient(90deg,transparent,${c.bg}f0)`, pointerEvents:"none" }}/>
+          </> : (
+            <div style={{ width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center", background:`${c.ac}08`, borderRight:`1px solid ${c.ac}0c` }}>
+              <span style={{ fontSize:mob?28:34, fontWeight:900, color:c.ac, opacity:h?.2:.08, lineHeight:1, userSelect:"none", transition:"opacity .18s", fontVariantNumeric:"tabular-nums" }}>{m.seed}</span>
+            </div>
+          )}
         </div>
 
         {/* Content */}
