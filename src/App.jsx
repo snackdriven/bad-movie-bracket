@@ -167,6 +167,7 @@ const MOVIE_META = {
 
 const RND = ["Round of 32", "Round of 16", "Elite 8", "Final Four", "Championship"];
 const TOTAL_PICKS = 31; // 16+8+4+2+1
+const STATE_VERSION = 2; // increment when movie list changes to bust old localStorage
 
 // Film grain — monochromatic aged cream, like projector dust on an old print
 const DOTS = Array.from({ length: 55 }, () => ({
@@ -187,7 +188,7 @@ export default function App() {
 
   const [init] = useState(() => {
     const s = loadLS("bmt-state", null);
-    if (!s) return null;
+    if (!s || s.v !== STATE_VERSION) return null;
     return { ...s, rds: s.rds.map(r => desMatch(r)) };
   });
 
@@ -220,7 +221,7 @@ export default function App() {
 
   // Persist bracket state to localStorage
   useEffect(() => {
-    const serialized = { rds: rds.map(r => serMatch(r)), cr, cm, ch, hi, upsets };
+    const serialized = { v: STATE_VERSION, rds: rds.map(r => serMatch(r)), cr, cm, ch, hi, upsets };
     saveLS("bmt-state", serialized);
   }, [rds, cr, cm, ch, hi, upsets]);
 
@@ -279,7 +280,7 @@ export default function App() {
   useEffect(() => {
     if (!sbUser) return;
     clearTimeout(syncTimerRef.current);
-    const serialized = { rds: rds.map(r => serMatch(r)), cr, cm, ch, hi, upsets };
+    const serialized = { v: STATE_VERSION, rds: rds.map(r => serMatch(r)), cr, cm, ch, hi, upsets };
     syncTimerRef.current = setTimeout(async () => {
       setSyncStatus("syncing");
       const { error } = await supabase.from("bad_movie_bracket").upsert({
