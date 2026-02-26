@@ -206,7 +206,6 @@ export default function App() {
   const [ch, setCh] = useState(() => init?.ch || null);
   const [hv, setHv] = useState(null);
   const [an, setAn] = useState(null);
-  const [bk, setBk] = useState(false);
   const [fb, setFb] = useState(false);
   const [hi, setHi] = useState(() => init?.hi || []);
   const [upsets, setUpsets] = useState(() => init?.upsets ?? []);
@@ -358,7 +357,7 @@ export default function App() {
     setRds([R1.map(([a, b]) => [MOVIES[a], MOVIES[b]])]);
     setCr(0); setCm(0); setCh(null); setHi([]); setUpsets([]);
     setUpFlash(false); setCopiedBracket(false);
-    setBk(false); setFb(false);
+    setFb(false);
     saveLS("bmt-state", null);
   };
 
@@ -493,7 +492,6 @@ export default function App() {
               <Btn mob={mob} p onClick={reset}>Run It Back</Btn>
               <Btn mob={mob} s mu onClick={copyBracket}>{copiedBracket ? "✓ Copied!" : "📋 Export"}</Btn>
             </div>
-            {bk && <BV mob={mob} rds={rds} />}
           </div>
 
         ) : mu ? (
@@ -543,10 +541,8 @@ export default function App() {
               </div>
             )}
 
-            {bk && <BV mob={mob} rds={rds} cr={cr} cm={cm} />}
-
             {/* Up Next */}
-            {!bk && rds[cr] && cm + 1 < rds[cr].length && (
+            {rds[cr] && cm + 1 < rds[cr].length && (
               <div style={{ marginTop:mob?24:30 }}>
                 <div style={{ fontSize:mob?11:10, color:"#7a6a58", marginBottom:mob?8:8, letterSpacing:2.5, textTransform:"uppercase", fontWeight:700 }}>Up Next</div>
                 {rds[cr].slice(cm + 1, cm + 2).map((m, i) => (
@@ -873,33 +869,6 @@ function Btn({ children, onClick, p, s, mu, mob }) {
       fontSize: s?(mob?13:12):(mob?15:14), fontWeight:p?700:600, cursor:"pointer",
       minHeight:mob?48:undefined, transition:"all .15s", WebkitTapHighlightColor:"transparent",
     }}>{children}</button>
-  );
-}
-
-function BV({ rds, cr, cm, mob }) {
-  return (
-    <div style={{ marginTop:mob?20:28, padding:mob?14:16, background:"rgba(255,255,255,.02)", borderRadius:mob?12:14, border:"1px solid rgba(255,255,255,.05)", textAlign:"left", animation:"fi .3s" }}>
-      <h3 style={{ fontSize:mob?15:14, fontWeight:700, color:"#6a5a48", margin:mob?"0 0 12px":"0 0 14px", letterSpacing:1 }}>Bracket Results</h3>
-      {rds.map((r, i) => <RB key={i} t={RND[i]} ms={r} cr={cr} cm={cm} ri={i} mob={mob} />)}
-    </div>
-  );
-}
-
-function RB({ t, ms, cr, cm, ri, mob }) {
-  return (
-    <div style={{ marginBottom:mob?14:16 }}>
-      <div style={{ fontSize:mob?11:10, letterSpacing:mob?2:2.5, textTransform:"uppercase", color:"#7a6a58", marginBottom:mob?6:6, fontWeight:700 }}>{t}</div>
-      {ms.map((m, mi) => {
-        const w = m.winner, cur = ri===cr&&mi===cm;
-        return (
-          <div key={mi} style={{ display:"flex", alignItems:"center", gap:mob?6:6, fontSize:mob?13:12, padding:mob?"5px 8px":"3px 8px", borderRadius:6, background:cur?"rgba(204,48,32,.06)":"transparent" }}>
-            <MN m={m[0]} w={w} r mob={mob} />
-            <span style={{ color:"#6a5a48", fontSize:mob?10:9, letterSpacing:1, flexShrink:0 }}>vs</span>
-            <MN m={m[1]} w={w} mob={mob} />
-          </div>
-        );
-      })}
-    </div>
   );
 }
 
