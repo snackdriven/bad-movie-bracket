@@ -666,6 +666,14 @@ function Card({ m, h, a, d, onH, onC, notes, updateNote, mob, movieMeta }) {
             }}>{meta.plot}</div>
           )}
 
+          {/* Trivia — only when notes are open */}
+          {showCardNotes && FACTS[m.name] && (
+            <div style={{
+              fontSize:11, color:"#8a7a62", lineHeight:1.55,
+              borderTop:`1px solid ${c.ac}18`, paddingTop:6, marginTop:2,
+            }}>{FACTS[m.name]}</div>
+          )}
+
           {mob && <div style={{ fontSize:9, color:c.ac, fontWeight:700, letterSpacing:1.8, textTransform:"uppercase", opacity:.35 }}>Tap to pick worst</div>}
         </div>
 
